@@ -19,7 +19,7 @@ namespace SysBot.Base
         {
             Log("Connecting to device...");
             //Connection.Connect(Info.IP, Info.Port);
-
+            // Info.Port == 6000;
             var result = Connection.BeginConnect(Info.IP, Info.Port, null, null);
 
             bool success = result.AsyncWaitHandle.WaitOne(3000, true);

@@ -6,10 +6,7 @@ namespace USP.Core
     [Serializable]
     public sealed record BotConfig : SwitchConnectionConfig { }
 
-    public sealed class Bot : CoreBot<BotConfig>
-    {
-        public Bot(BotConfig cfg) : base(cfg) { }
-    }
+    public sealed class SysBot : CoreBot<BotConfig> { public SysBot(BotConfig cfg) : base(cfg) { } }
 
     public record ProcessInfo
     {

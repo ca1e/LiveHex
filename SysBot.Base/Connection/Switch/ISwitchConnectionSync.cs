@@ -10,11 +10,9 @@
         ulong GetTitleID();
         ulong GetBuildID();
 
-        byte[] ReadBytes(uint offset, int length);
         byte[] ReadBytesMain(ulong offset, int length);
         byte[] ReadBytesAbsolute(ulong offset, int length);
 
-        void WriteBytes(byte[] data, uint offset);
         void WriteBytesMain(byte[] data, ulong offset);
         void WriteBytesAbsolute(byte[] data, ulong offset);
     }

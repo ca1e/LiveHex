@@ -1,7 +1,5 @@
 ﻿using USP.UI.Properties;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using USP.Core;
@@ -10,35 +8,13 @@ namespace USP.UI
 {
     public partial class LoginForm : Form
     {
-        #region Path Variables
-
-        public static readonly string WorkingDirectory = Application.StartupPath;
-        private static readonly string PluginPath = Path.Combine(WorkingDirectory, "plugins");
-
-        #endregion
-
-        #region Important Variables
-
         private readonly Settings Settings = Settings.Default;
-        private static readonly List<IPlugin> Plugins = new();
-
-        #endregion
 
         public LoginForm()
         {
             InitializeComponent();
 
-            FormLoadPlugins();
             LoadControls();
-        }
-
-        private void FormLoadPlugins()
-        {
-#if !MERGED // merged should load dlls from within too, folder is no longer required
-            if (!Directory.Exists(PluginPath))
-                return;
-#endif
-            Plugins.AddRange(PluginLoader.LoadPlugins<IPlugin>(PluginPath));
         }
 
         private void LoadControls()
@@ -71,6 +47,8 @@ namespace USP.UI
             };
         }
 
+        public IRAMEditor Editor = new FakeEditor();
+
         private void connButton_Click(object sender, EventArgs e)
         {
             var ip = ipTextBox.Text;
@@ -79,23 +57,23 @@ namespace USP.UI
 
             try
             {
-                var bot = CoreUtil.GetBot(ip, port, (ProtocolType)idx);
+                Editor = CoreUtil.GetSysBot(ip, port, (ProtocolType)idx);
 
-                var form = new HexForm(bot);
+                DialogResult = DialogResult.OK;
 
                 Settings.SwitchIP = ipTextBox.Text;
-                this.Visible = false;
                 Settings.Save();
 
-                form.ShowDialog();
+                Close();
             }
             catch (Exception ex)
             {
+                DialogResult = DialogResult.Cancel;
                 MessageBox.Show(ex.Message);
             }
             finally
             {
-                this.Visible = true;
+                Close();
             }
         }
     }

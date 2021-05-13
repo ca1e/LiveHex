@@ -39,12 +39,18 @@ namespace USP.UI
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // hexOfTextBox
             // 
-            this.hexOfTextBox.Location = new System.Drawing.Point(172, 53);
+            this.hexOfTextBox.Location = new System.Drawing.Point(172, 73);
             this.hexOfTextBox.Name = "hexOfTextBox";
             this.hexOfTextBox.Size = new System.Drawing.Size(69, 21);
             this.hexOfTextBox.TabIndex = 16;
@@ -53,7 +59,7 @@ namespace USP.UI
             // writeButton
             // 
             this.writeButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.writeButton.Location = new System.Drawing.Point(358, 47);
+            this.writeButton.Location = new System.Drawing.Point(362, 68);
             this.writeButton.Name = "writeButton";
             this.writeButton.Size = new System.Drawing.Size(92, 27);
             this.writeButton.TabIndex = 14;
@@ -64,7 +70,7 @@ namespace USP.UI
             // readButton
             // 
             this.readButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.readButton.Location = new System.Drawing.Point(247, 47);
+            this.readButton.Location = new System.Drawing.Point(252, 68);
             this.readButton.Name = "readButton";
             this.readButton.Size = new System.Drawing.Size(95, 27);
             this.readButton.TabIndex = 13;
@@ -75,7 +81,7 @@ namespace USP.UI
             // hexRltTextBox
             // 
             this.hexRltTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hexRltTextBox.Location = new System.Drawing.Point(497, 11);
+            this.hexRltTextBox.Location = new System.Drawing.Point(570, 35);
             this.hexRltTextBox.Name = "hexRltTextBox";
             this.hexRltTextBox.Size = new System.Drawing.Size(121, 21);
             this.hexRltTextBox.TabIndex = 12;
@@ -83,7 +89,7 @@ namespace USP.UI
             // parseButton
             // 
             this.parseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.parseButton.Location = new System.Drawing.Point(406, 9);
+            this.parseButton.Location = new System.Drawing.Point(479, 33);
             this.parseButton.Name = "parseButton";
             this.parseButton.Size = new System.Drawing.Size(75, 23);
             this.parseButton.TabIndex = 11;
@@ -95,9 +101,9 @@ namespace USP.UI
             // 
             this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(12, 11);
+            this.textBox1.Location = new System.Drawing.Point(12, 35);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(388, 21);
+            this.textBox1.Size = new System.Drawing.Size(461, 21);
             this.textBox1.TabIndex = 10;
             // 
             // hexBox1
@@ -110,10 +116,10 @@ namespace USP.UI
             this.hexBox1.GroupSeparatorVisible = true;
             this.hexBox1.GroupSize = 8;
             this.hexBox1.LineInfoVisible = true;
-            this.hexBox1.Location = new System.Drawing.Point(12, 80);
+            this.hexBox1.Location = new System.Drawing.Point(12, 105);
             this.hexBox1.Name = "hexBox1";
             this.hexBox1.ShadowSelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(60)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.hexBox1.Size = new System.Drawing.Size(606, 335);
+            this.hexBox1.Size = new System.Drawing.Size(679, 325);
             this.hexBox1.StringViewVisible = true;
             this.hexBox1.TabIndex = 17;
             this.hexBox1.UseFixedBytesPerLine = true;
@@ -123,7 +129,7 @@ namespace USP.UI
             // 
             this.panel1.Controls.Add(this.radioButton2);
             this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Location = new System.Drawing.Point(12, 46);
+            this.panel1.Location = new System.Drawing.Point(12, 67);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(141, 28);
             this.panel1.TabIndex = 18;
@@ -152,11 +158,51 @@ namespace USP.UI
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(703, 24);
+            this.menuStrip1.TabIndex = 19;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            // 
             // HexForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(630, 427);
+            this.ClientSize = new System.Drawing.Size(703, 442);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.hexBox1);
             this.Controls.Add(this.hexOfTextBox);
@@ -165,12 +211,15 @@ namespace USP.UI
             this.Controls.Add(this.hexRltTextBox);
             this.Controls.Add(this.parseButton);
             this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "HexForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HexEdit";
-            this.Load += new System.EventHandler(this.HexEditor_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,5 +237,10 @@ namespace USP.UI
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
