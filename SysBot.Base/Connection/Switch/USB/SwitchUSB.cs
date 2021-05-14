@@ -69,6 +69,7 @@ namespace SysBot.Base
 
                 reader = SwDevice.OpenEndpointReader(ReadEndpointID.Ep01);
                 writer = SwDevice.OpenEndpointWriter(WriteEndpointID.Ep01);
+                Connected = true;
             }
         }
 

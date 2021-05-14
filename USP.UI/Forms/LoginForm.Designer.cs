@@ -123,7 +123,7 @@ namespace USP.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(446, 241);
+            this.ClientSize = new System.Drawing.Size(243, 241);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.attachButton);
             this.Controls.Add(this.listBox1);

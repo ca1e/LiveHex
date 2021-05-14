@@ -41,7 +41,6 @@ namespace SysBot.Base
         {
             Send(SwitchCommand.GetTitleID(false));
             byte[] baseBytes = ReadResponse(8);
-            Array.Reverse(baseBytes, 0, 8);
             return BitConverter.ToUInt64(baseBytes, 0);
         }
 
