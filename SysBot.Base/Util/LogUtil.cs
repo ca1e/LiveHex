@@ -14,12 +14,12 @@ namespace SysBot.Base
 
         public static void LogError(string message, string identity)
         {
-            
+
         }
 
         public static void LogInfo(string message, string identity)
         {
-            
+
         }
     }
 }

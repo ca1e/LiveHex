@@ -17,9 +17,25 @@ namespace USP.UI
             LoadControls();
         }
 
-        private void LoadControls()
+        private void LoadSettings()
         {
             ipTextBox.Text = Settings.SwitchIP;
+            portTextBox.Text = Settings.SwitchPort.ToString();
+        }
+
+        private void SaveSettings()
+        {
+            var ip = ipTextBox.Text;
+            var port = Convert.ToInt32(portTextBox.Text);
+
+            Settings.SwitchIP = ip;
+            Settings.SwitchPort = port;
+            Settings.Save();
+        }
+
+        private void LoadControls()
+        {
+            LoadSettings();
 
             usbComboBox.Items.Clear();
             usbComboBox.Items.AddRange(CoreUtil.USBPort.ToArray());
@@ -36,13 +52,25 @@ namespace USP.UI
             CB_Protocol.SelectedIndex = 0; // default option
             CB_Protocol.SelectedIndexChanged += (_, __) =>
             {
-                ipTextBox.Visible = CB_Protocol.SelectedIndex == 0;
+                ipTextBox.Visible = CB_Protocol.SelectedIndex != 1;
+                this.Width = CB_Protocol.SelectedIndex switch
+                {
+                    2 => 470,
+                    _ => 270,
+                };
+                portTextBox.Text = CB_Protocol.SelectedIndex switch
+                {
+                    0 => "6000",
+                    2 => "7331",
+                    _ => "0", // for usb address
+                };
                 portTextBox.Visible = ipTextBox.Visible;
                 usbComboBox.Visible = !ipTextBox.Visible;
                 if(usbComboBox.Visible)
                 {
                     usbComboBox.Items.Clear();
                     usbComboBox.Items.AddRange(CoreUtil.USBPort.ToArray());
+                    usbComboBox.SelectedIndex = usbComboBox.Items.Count != 0 ? 0 : -1;
                 }
             };
         }
@@ -57,23 +85,47 @@ namespace USP.UI
 
             try
             {
-                Editor = CoreUtil.GetSysBot(ip, port, (ProtocolType)idx);
+                if(idx == 2)
+                {
+                    var test = CoreUtil.GetNoexsBot(ip, port);
+                    var ps = test.GetPids();
+                    listBox1.Items.Clear();
+                    foreach(var p in ps)
+                    {
+                        listBox1.Items.Add(p);
+                    }
+                    listBox1.SelectedIndexChanged += (_, __) =>
+                    {
+                        label1.Text = $"{test.GetTitleId((ulong)listBox1.SelectedItem):X}";
+                    };
+                    connButton.Enabled = false;
+                    attachButton.Enabled = true;
+                }
+                else
+                {
+                    Editor = CoreUtil.GetSysBot(ip, port, (ProtocolType)idx);
 
-                DialogResult = DialogResult.OK;
+                    DialogResult = DialogResult.OK;
 
-                Settings.SwitchIP = ipTextBox.Text;
-                Settings.Save();
-
-                Close();
+                    SaveSettings();
+                    Close();
+                }
             }
             catch (Exception ex)
             {
                 DialogResult = DialogResult.Cancel;
                 MessageBox.Show(ex.Message);
             }
-            finally
+        }
+
+        private void attachButton_Click(object sender, EventArgs e)
+        {
+            if(listBox1.SelectedIndex != -1)
             {
-                Close();
+                var ip = ipTextBox.Text;
+                var port = Convert.ToInt32(portTextBox.Text);
+                var test = CoreUtil.GetNoexsBot(ip, port);
+                //test.Attach((ulong)listBox1.SelectedItem);
             }
         }
     }

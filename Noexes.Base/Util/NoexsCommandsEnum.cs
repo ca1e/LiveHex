@@ -1,7 +1,7 @@
 ﻿
 namespace Noexes.Base
 {
-    enum NoexsCommandsEnum
+    internal enum NoexsCommandsEnum
     {
         Abort = 0x00,
 

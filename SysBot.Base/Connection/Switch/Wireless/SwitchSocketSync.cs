@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Sockets;
 using System.Threading;
 using static SysBot.Base.SwitchOffsetType;
 
@@ -18,20 +17,7 @@ namespace SysBot.Base
         public override void Connect()
         {
             Log("Connecting to device...");
-            //Connection.Connect(Info.IP, Info.Port);
-            // Info.Port == 6000;
-            var result = Connection.BeginConnect(Info.IP, Info.Port, null, null);
-
-            bool success = result.AsyncWaitHandle.WaitOne(3000, true);
-            if (success)
-            {
-                Connection.EndConnect(result);
-            }
-            else
-            {
-                Connection.Close();
-                throw new SocketException(10060); // Connection timed out.
-            }
+            Connection.Connect(Info.IP, Info.Port);
             Connected = true;
             Log("Connected!");
         }
@@ -73,22 +59,6 @@ namespace SysBot.Base
         public ulong GetHeapBase()
         {
             Send(SwitchCommand.GetHeapBase());
-            byte[] baseBytes = ReadResponse(8);
-            Array.Reverse(baseBytes, 0, 8);
-            return BitConverter.ToUInt64(baseBytes, 0);
-        }
-
-        public ulong GetTitleID()
-        {
-            Send(SwitchCommand.GetTitleID());
-            byte[] baseBytes = ReadResponse(8);
-            Array.Reverse(baseBytes, 0, 8);
-            return BitConverter.ToUInt64(baseBytes, 0);
-        }
-
-        public ulong GetBuildID()
-        {
-            Send(SwitchCommand.GetBuildID());
             byte[] baseBytes = ReadResponse(8);
             Array.Reverse(baseBytes, 0, 8);
             return BitConverter.ToUInt64(baseBytes, 0);
@@ -145,6 +115,22 @@ namespace SysBot.Base
                 Send(cmd);
                 Thread.Sleep((MaximumTransferSize / DelayFactor) + BaseDelay);
             }
+        }
+
+        public ulong GetTitleID()
+        {
+            Send(SwitchCommand.GetTitleID());
+            byte[] baseBytes = ReadResponse(8);
+            Array.Reverse(baseBytes, 0, 8);
+            return BitConverter.ToUInt64(baseBytes, 0);
+        }
+
+        public ulong GetBuildID()
+        {
+            Send(SwitchCommand.GetBuildID());
+            byte[] baseBytes = ReadResponse(8);
+            Array.Reverse(baseBytes, 0, 8);
+            return BitConverter.ToUInt64(baseBytes, 0);
         }
     }
 }

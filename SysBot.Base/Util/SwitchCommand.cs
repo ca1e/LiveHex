@@ -146,20 +146,6 @@ namespace SysBot.Base
 
         /* 
          *
-         * Pointer Commands
-         *
-         */
-        /* 
-         *
-         * pointer
-         * pointerAll
-         * pointerPeek
-         * pointerPoke
-         *
-         */
-
-        /* 
-         *
          * Process Info Commands
          *
          */
@@ -182,10 +168,14 @@ namespace SysBot.Base
         /// Requests the title id of attached process.
         /// </summary>
         /// <param name="crlf">Line terminator (unused by USB's protocol)</param>
-        /// <returns>Encoded command bytes(u64)</returns>
+        /// <returns>Encoded command bytes</returns>
         public static byte[] GetTitleID(bool crlf = true) => Encode("getTitleID", crlf);
 
-        /// Requests the build id of attached process(usb not support).
+        /// <summary>
+        /// Requests the build id of attached process.
+        /// </summary>
+        /// <param name="crlf">Line terminator (unused by USB's protocol)</param>
+        /// <returns>Encoded command bytes</returns>
         public static byte[] GetBuildID(bool crlf = true) => Encode("getBuildID", crlf);
     }
 }

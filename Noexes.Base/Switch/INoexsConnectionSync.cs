@@ -1,8 +1,16 @@
-﻿namespace Noexes.Base
+﻿using SysBot.Base;
+using System.Collections.Generic;
+
+namespace Noexes.Base
 {
-    public interface INoexsConnectionSync
+    public interface INoexsConnectionSync : ISwitchConnectionSync
     {
-        ulong[] GetPids();
-        ulong GetTitleID();
+        IEnumerable<ulong> GetPids();
+
+        ulong CurrentPid();
+
+        ulong GetTitleId(ulong pid);
+
+        int Attach(ulong pid);
     }
 }

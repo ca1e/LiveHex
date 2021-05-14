@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Noexes.Base.Util
+namespace Noexes.Base
 {
     public static class NoexsCommand
     {
@@ -15,6 +15,16 @@ namespace Noexes.Base.Util
         public static byte[] GetCurrentPid()
         {
             return GetCommands(NoexsCommandsEnum.CurrentPid).ToArray();
+        }
+
+        public static byte[] Resume()
+        {
+            return GetCommands(NoexsCommandsEnum.Resume).ToArray();
+        }
+
+        public static byte[] Pause()
+        {
+            return GetCommands(NoexsCommandsEnum.Pause).ToArray();
         }
 
         public static byte[] Attach(ulong pid)

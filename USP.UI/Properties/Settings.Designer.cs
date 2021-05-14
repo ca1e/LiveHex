@@ -34,5 +34,17 @@ namespace USP.UI.Properties {
                 this["SwitchIP"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6000")]
+        public int SwitchPort {
+            get {
+                return ((int)(this["SwitchPort"]));
+            }
+            set {
+                this["SwitchPort"] = value;
+            }
+        }
     }
 }

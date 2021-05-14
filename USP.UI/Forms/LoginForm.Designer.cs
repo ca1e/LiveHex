@@ -34,12 +34,15 @@ namespace USP.UI
             this.portTextBox = new System.Windows.Forms.TextBox();
             this.connButton = new System.Windows.Forms.Button();
             this.usbComboBox = new System.Windows.Forms.ComboBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.attachButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ipTextBox
             // 
             this.ipTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ipTextBox.Location = new System.Drawing.Point(51, 33);
+            this.ipTextBox.Location = new System.Drawing.Point(53, 34);
             this.ipTextBox.Name = "ipTextBox";
             this.ipTextBox.Size = new System.Drawing.Size(150, 26);
             this.ipTextBox.TabIndex = 8;
@@ -50,7 +53,7 @@ namespace USP.UI
             this.CB_Protocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CB_Protocol.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.CB_Protocol.FormattingEnabled = true;
-            this.CB_Protocol.Location = new System.Drawing.Point(51, 121);
+            this.CB_Protocol.Location = new System.Drawing.Point(53, 122);
             this.CB_Protocol.Name = "CB_Protocol";
             this.CB_Protocol.Size = new System.Drawing.Size(150, 24);
             this.CB_Protocol.TabIndex = 7;
@@ -58,7 +61,7 @@ namespace USP.UI
             // portTextBox
             // 
             this.portTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.portTextBox.Location = new System.Drawing.Point(51, 65);
+            this.portTextBox.Location = new System.Drawing.Point(53, 66);
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(150, 26);
             this.portTextBox.TabIndex = 6;
@@ -67,7 +70,7 @@ namespace USP.UI
             // connButton
             // 
             this.connButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.connButton.Location = new System.Drawing.Point(51, 168);
+            this.connButton.Location = new System.Drawing.Point(53, 169);
             this.connButton.Name = "connButton";
             this.connButton.Size = new System.Drawing.Size(150, 35);
             this.connButton.TabIndex = 5;
@@ -80,17 +83,50 @@ namespace USP.UI
             this.usbComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.usbComboBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.usbComboBox.FormattingEnabled = true;
-            this.usbComboBox.Location = new System.Drawing.Point(51, 33);
+            this.usbComboBox.Location = new System.Drawing.Point(53, 34);
             this.usbComboBox.Name = "usbComboBox";
             this.usbComboBox.Size = new System.Drawing.Size(150, 24);
             this.usbComboBox.TabIndex = 9;
             this.usbComboBox.Visible = false;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(260, 34);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(150, 124);
+            this.listBox1.TabIndex = 10;
+            // 
+            // attachButton
+            // 
+            this.attachButton.Enabled = false;
+            this.attachButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.attachButton.Location = new System.Drawing.Point(260, 169);
+            this.attachButton.Name = "attachButton";
+            this.attachButton.Size = new System.Drawing.Size(150, 35);
+            this.attachButton.TabIndex = 11;
+            this.attachButton.Text = "Attach";
+            this.attachButton.UseVisualStyleBackColor = true;
+            this.attachButton.Click += new System.EventHandler(this.attachButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(258, 207);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "titleId";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(258, 239);
+            this.ClientSize = new System.Drawing.Size(446, 241);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.attachButton);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.ipTextBox);
             this.Controls.Add(this.CB_Protocol);
             this.Controls.Add(this.portTextBox);
@@ -115,6 +151,9 @@ namespace USP.UI
         private System.Windows.Forms.TextBox portTextBox;
         private System.Windows.Forms.Button connButton;
         private System.Windows.Forms.ComboBox usbComboBox;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button attachButton;
+        private System.Windows.Forms.Label label1;
     }
 }
 

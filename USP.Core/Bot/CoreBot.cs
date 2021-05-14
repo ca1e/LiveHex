@@ -1,9 +1,10 @@
-﻿using SysBot.Base;
+﻿using Noexes.Base;
+using SysBot.Base;
 using System.Collections.Generic;
 
 namespace USP.Core
 {
-    public abstract class CoreBot<T> : IExecutor, IRAMEditor where T : class, IConsoleBotConfig
+    public abstract class CoreBot<T> : INoexsExecutor, IRAMEditor where T : class, IConsoleBotConfig
     {
         public readonly ISwitchConnectionSync SwitchConnection;
         public readonly T Config;

@@ -69,7 +69,6 @@ namespace SysBot.Base
 
                 reader = SwDevice.OpenEndpointReader(ReadEndpointID.Ep01);
                 writer = SwDevice.OpenEndpointWriter(WriteEndpointID.Ep01);
-                Connected = true;
             }
         }
 
@@ -126,23 +125,21 @@ namespace SysBot.Base
                 return ReadInternal(buffer);
         }
 
-        public byte[] Read(uint offset, int length)
+        protected byte[] Read(ulong offset, int length, Func<ulong, int, byte[]> method)
         {
-            var method = SwitchOffsetType.Heap.GetReadMethod(false);
             if (length > MaximumTransferSize)
                 return ReadLarge(offset, length, method);
-            return Read(offset, length, method);
+            return ReadSmall(offset, length, method);
         }
 
-        public void Write(byte[] data, uint offset)
+        protected void Write(byte[] data, ulong offset, Func<ulong, byte[], byte[]> method)
         {
-            var method = SwitchOffsetType.Heap.GetWriteMethod(false);
             if (data.Length > MaximumTransferSize)
                 WriteLarge(data, offset, method);
-            Write(data, offset, method);
+            else WriteSmall(data, offset, method);
         }
 
-        protected byte[] Read(ulong offset, int length, Func<ulong, int, byte[]> method)
+        public byte[] ReadSmall(ulong offset, int length, Func<ulong, int, byte[]> method)
         {
             lock (_sync)
             {
@@ -156,7 +153,7 @@ namespace SysBot.Base
             }
         }
 
-        protected void Write(byte[] data, ulong offset, Func<ulong, byte[], byte[]> method)
+        public void WriteSmall(byte[] data, ulong offset, Func<ulong, byte[], byte[]> method)
         {
             lock (_sync)
             {
@@ -198,7 +195,7 @@ namespace SysBot.Base
             return l;
         }
 
-        private void WriteLarge(byte[] data, uint offset, Func<ulong, byte[], byte[]> method)
+        private void WriteLarge(byte[] data, ulong offset, Func<ulong, byte[], byte[]> method)
         {
             int byteCount = data.Length;
             for (int i = 0; i < byteCount; i += MaximumTransferSize)
@@ -209,7 +206,7 @@ namespace SysBot.Base
             }
         }
 
-        private byte[] ReadLarge(uint offset, int length, Func<ulong, int, byte[]> method)
+        private byte[] ReadLarge(ulong offset, int length, Func<ulong, int, byte[]> method)
         {
             var result = new byte[length];
             for (int i = 0; i < length; i += MaximumTransferSize)
@@ -227,9 +224,7 @@ namespace SysBot.Base
             {
                 var buffer = new byte[(length * 2) + 0];
                 var _ = Read(buffer);
-                Array.Reverse(buffer, 0, length);
                 return buffer;
-                //return Decoder.ConvertHexByteStringToBytes(buffer);
             }
         }
     }
