@@ -1,9 +1,10 @@
-﻿using SysBot.Base;
+﻿using Noexes.Base;
+using SysBot.Base;
 using System.Collections.Generic;
 
-namespace Noexes.Base
+namespace USP.Core
 {
-    public abstract class NoexsExecutor<T> : INoexsExecutor where T : class, INoexsBotConfig
+    public abstract class NoexsExecutor<T> : IExecutor where T : class, INoexsBotConfig
     {
         public readonly INoexsConnectionSync Connection;
         public readonly T Config;

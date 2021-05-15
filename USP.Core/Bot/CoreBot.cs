@@ -1,10 +1,10 @@
-﻿using Noexes.Base;
-using SysBot.Base;
+﻿using SysBot.Base;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace USP.Core
 {
-    public abstract class CoreBot<T> : INoexsExecutor, IRAMEditor where T : class, IConsoleBotConfig
+    public abstract class CoreBot<T> : IExecutor, IRAMEditor where T : class, IConsoleBotConfig
     {
         public readonly ISwitchConnectionSync SwitchConnection;
         public readonly T Config;
@@ -40,6 +40,7 @@ namespace USP.Core
             var eval = new ExpressionEvaluator(vars, (ulong addr) => {
                 var data = SwitchConnection.ReadBytesAbsolute(addr, 0x8);
                 var realaddr = new ValueData(0x8, data);
+                // Debug.WriteLine($"{realaddr.HumanValue:X}");
                 return realaddr.HumanValue;
             });
             return eval.Eval(evalStr);

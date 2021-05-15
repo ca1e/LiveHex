@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Noexes.Base
 {
-    public static class NoexsCommand
+    internal static class NoexsCommand
     {
         private static List<byte> GetCommands(NoexsCommandsEnum cmd) => new() { (byte)cmd };
 
