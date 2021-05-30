@@ -22,7 +22,7 @@ namespace USP.Core
         {
             public Token prev, next;
             public Type type;
-            public Object value;
+            public object value;
 
             public override string ToString()
             {
@@ -35,11 +35,11 @@ namespace USP.Core
             this.Variables = variables;
             this.getMemAbs += mem;
         }
-        public ulong Eval(String str)
+        public ulong Eval(string str)
         {
             var tokens = setup(str);
             var values = new Stack<ulong>();
-            var ops = new Stack<Char>();
+            var ops = new Stack<char>();
             foreach (var t in tokens)
             {
                 switch (t.type)
@@ -52,7 +52,7 @@ namespace USP.Core
                         break;
                     case ARITHMETIC:
                     case DEREF_START:
-                        ops.Push((Char)t.value);
+                        ops.Push((char)t.value);
                         break;
                     case DEREF_END:
                         while (ops.Peek() != '[')
@@ -72,18 +72,18 @@ namespace USP.Core
             return values.Pop();
         }
 
-        private List<Token> setup(String str)
+        private List<Token> setup(string str)
         {
-            char[] itr = str.ToCharArray();
+            var itr = str.ToCharArray();
             //parse into tokens
-            List<Token> tokens = getTokens(itr);
+            var tokens = getTokens(itr);
             //verify the tokens
             verifyFormatting(tokens);
             //if valid format, set tokens
             return tokens;
         }
 
-        private ulong EvalOp(Char type, ulong v1, ulong v2)
+        private ulong EvalOp(char type, ulong v1, ulong v2)
         {
             return type switch
             {
@@ -148,25 +148,25 @@ namespace USP.Core
             //merge all consecutive variable tokens together
             for (int i = 0; i < res.Count; i++)
             {
-                if (merge(res, i))
+                if (Merge(res, i))
                 {
                     i--;
                 }
             }
             //remove whitespace
-            res = res.Where(t => t.type != Type.WHITESPACE).ToList();
+            res = res.Where(t => t.type != WHITESPACE).ToList();
 
             //make number types actually numbers
             foreach(var t in res)
             {
-                if (t.type == Type.VARIABLE)
+                if (t.type == VARIABLE)
                 {
                     try
                     {
                         t.value = ulong.Parse(t.value.ToString(), System.Globalization.NumberStyles.HexNumber);
-                        t.type = Type.CONSTANT;
+                        t.type = CONSTANT;
                     }
-                    catch // ignore
+                    catch(Exception _)
                     {
                     }
                 }
@@ -175,7 +175,7 @@ namespace USP.Core
             //finally link all tokens together
             for (int i = 0; i < res.Count; i++)
             {
-                Token t = res[i];
+                var t = res[i];
                 if (i > 0)
                 {
                     t.prev = res[i - 1];
@@ -188,15 +188,15 @@ namespace USP.Core
             return res;
         }
 
-        private bool merge(List<Token> tokens, int index)
+        private bool Merge(List<Token> tokens, int index)
         {
             if (index + 1 >= tokens.Count)
             {
                 return false;
             }
-            Token curr = tokens[index];
-            Token next = tokens[index + 1];
-            if (curr.type != Type.VARIABLE || next.type != Type.VARIABLE)
+            var curr = tokens[index];
+            var next = tokens[index + 1];
+            if (curr.type != VARIABLE || next.type != VARIABLE)
             {
                 return false;
             }
@@ -207,7 +207,7 @@ namespace USP.Core
 
         private Type getType(char c)
         {
-            if (Char.IsWhiteSpace(c))
+            if (char.IsWhiteSpace(c))
             {
                 return WHITESPACE;
             }

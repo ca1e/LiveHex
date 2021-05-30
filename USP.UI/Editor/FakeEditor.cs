@@ -1,5 +1,4 @@
-﻿using System;
-using USP.Core;
+﻿using USP.Core;
 
 namespace USP.UI
 {

@@ -19,7 +19,7 @@ namespace USP.UI
 #endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HexForm());
+            Application.Run(new MainForm());
         }
     }
 }
