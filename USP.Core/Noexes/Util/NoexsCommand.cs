@@ -27,18 +27,39 @@ namespace Noexes.Base
             return GetCommands(NoexsCommandsEnum.Pause).ToArray();
         }
 
+        public static byte[] Detach()
+        {
+            return GetCommands(NoexsCommandsEnum.Detach).ToArray();
+        }
+
         public static byte[] Attach(ulong pid)
         {
-            var cmd = GetCommands(NoexsCommandsEnum.ListPids);
+            var cmd = GetCommands(NoexsCommandsEnum.Attach);
             cmd.AddRange(BitConverter.GetBytes(pid));
             return cmd.ToArray();
         }
 
-        public static byte[] ReadMem(ulong offset, int count)
+        public static byte[] ReadMem(ulong offset, uint count)
         {
-            var cmd = GetCommands(NoexsCommandsEnum.GetTitleId);
+            var cmd = GetCommands(NoexsCommandsEnum.ReadMem);
             cmd.AddRange(BitConverter.GetBytes(offset));
             cmd.AddRange(BitConverter.GetBytes(count));
+            return cmd.ToArray();
+        }
+
+        public static byte[] WriteMem(ulong offset, uint count)
+        {
+            var cmd = GetCommands(NoexsCommandsEnum.WriteMem);
+            cmd.AddRange(BitConverter.GetBytes(offset));
+            cmd.AddRange(BitConverter.GetBytes(count));
+            return cmd.ToArray();
+        }
+
+        public static byte[] Query(long start, int max)
+        {
+            var cmd = GetCommands(NoexsCommandsEnum.QueryMemMulti);
+            cmd.AddRange(BitConverter.GetBytes(start));
+            cmd.AddRange(BitConverter.GetBytes(max));
             return cmd.ToArray();
         }
 

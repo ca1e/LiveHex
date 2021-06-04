@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 using System.Windows.Forms;
 using USP.Core;
 
@@ -14,6 +9,19 @@ namespace USP.UI
 {
     public partial class MainForm : Form
     {
+        private static readonly Version CurrentProgramVersion = Assembly.GetExecutingAssembly().GetName().Version!;
+
+        public MainForm()
+        {
+            var args = Environment.GetCommandLineArgs();
+
+            InitializeComponent();
+
+            FormLoadCheck();
+            FormLoadPlugins();
+        }
+
+
         #region Path Variables
 
         public static readonly string WorkingDirectory = Application.StartupPath;
@@ -28,13 +36,11 @@ namespace USP.UI
 
         #endregion
 
-        public MainForm()
+        private void FormLoadCheck()
         {
-            InitializeComponent();
-
-            //FormLoadPlugins();
+            this.Text += CurrentProgramVersion;
+            L_consoleInfo.Text = "No Console Connected";
         }
-
 
         private void FormLoadPlugins()
         {
@@ -53,6 +59,10 @@ namespace USP.UI
                 MyCoreBot = form.Editor;
                 var info = MyCoreBot.GetInfo();
                 L_consoleInfo.Text = $"Console: tid:{info.TitleId:X}, bid:{info.BuildId:X}";
+                if(info.HeepBase != 0)
+                {
+                    L_consoleInfo.Text += "-H1";
+                }
             }
         }
 

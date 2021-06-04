@@ -52,25 +52,25 @@ namespace USP.UI
             // 
             // writeButton
             // 
-            this.writeButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.writeButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.writeButton.Location = new System.Drawing.Point(362, 44);
             this.writeButton.Name = "writeButton";
             this.writeButton.Size = new System.Drawing.Size(92, 27);
             this.writeButton.TabIndex = 14;
             this.writeButton.Text = "Write";
             this.writeButton.UseVisualStyleBackColor = true;
-            this.writeButton.Click += new System.EventHandler(this.writeButton_Click);
+            this.writeButton.Click += new System.EventHandler(this.WriteButton_Click);
             // 
             // readButton
             // 
-            this.readButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.readButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.readButton.Location = new System.Drawing.Point(252, 44);
             this.readButton.Name = "readButton";
             this.readButton.Size = new System.Drawing.Size(95, 27);
             this.readButton.TabIndex = 13;
             this.readButton.Text = "Read";
             this.readButton.UseVisualStyleBackColor = true;
-            this.readButton.Click += new System.EventHandler(this.readButton_Click);
+            this.readButton.Click += new System.EventHandler(this.ReadButton_Click);
             // 
             // hexRltTextBox
             // 
@@ -90,7 +90,7 @@ namespace USP.UI
             this.parseButton.TabIndex = 11;
             this.parseButton.Text = "parse>>";
             this.parseButton.UseVisualStyleBackColor = true;
-            this.parseButton.Click += new System.EventHandler(this.parseButton_Click);
+            this.parseButton.Click += new System.EventHandler(this.ParseButton_Click);
             // 
             // textBox1
             // 
@@ -100,6 +100,7 @@ namespace USP.UI
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(441, 21);
             this.textBox1.TabIndex = 10;
+            this.textBox1.Text = "main";
             // 
             // hexBox1
             // 
@@ -165,7 +166,6 @@ namespace USP.UI
             this.Controls.Add(this.parseButton);
             this.Controls.Add(this.textBox1);
             this.Name = "HexForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HexEdit";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -113,7 +113,8 @@ namespace USP.Core
                         {
                             throw new InvalidOperationException("Unknown variable:" + t.value);
                         }
-                        goto case ARITHMETIC;
+                        //goto case ARITHMETIC;
+                        break;
                     case ARITHMETIC:
                         if (t.prev == null)
                         {

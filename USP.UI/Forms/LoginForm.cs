@@ -15,12 +15,15 @@ namespace USP.UI
             InitializeComponent();
 
             LoadControls();
+
+            LoadSettings();
         }
 
         private void LoadSettings()
         {
             ipTextBox.Text = Settings.SwitchIP;
             portTextBox.Text = Settings.SwitchPort.ToString();
+            CB_Protocol.SelectedIndex = Settings.SwitchType;
         }
 
         private void SaveSettings()
@@ -30,13 +33,12 @@ namespace USP.UI
 
             Settings.SwitchIP = ip;
             Settings.SwitchPort = port;
+            Settings.SwitchType = WinFormsUtil.GetIndex(CB_Protocol);
             Settings.Save();
         }
 
         private void LoadControls()
         {
-            LoadSettings();
-
             usbComboBox.Items.Clear();
             usbComboBox.Items.AddRange(CoreUtil.USBPort.ToArray());
             usbComboBox.SelectedIndexChanged += (_, __) =>
@@ -48,16 +50,10 @@ namespace USP.UI
             // conn protocol
             CB_Protocol.DisplayMember = nameof(ComboItem.Text);
             CB_Protocol.ValueMember = nameof(ComboItem.Value);
-            CB_Protocol.DataSource = protocols.Select(z => new ComboItem(z.ToString(), (int)z)).ToArray(); ;
-            CB_Protocol.SelectedIndex = 0; // default option
+            CB_Protocol.DataSource = protocols.Select(z => new ComboItem(z.ToString(), (int)z)).ToArray();
             CB_Protocol.SelectedIndexChanged += (_, __) =>
             {
                 ipTextBox.Visible = CB_Protocol.SelectedIndex != 1;
-                this.Width = CB_Protocol.SelectedIndex switch
-                {
-                    2 => 470,
-                    _ => 270,
-                };
                 portTextBox.Text = CB_Protocol.SelectedIndex switch
                 {
                     0 => "6000",
@@ -73,11 +69,12 @@ namespace USP.UI
                     usbComboBox.SelectedIndex = usbComboBox.Items.Count != 0 ? 0 : -1;
                 }
             };
+            CB_Protocol.SelectedIndex = 0; // default option
         }
 
         public IRAMEditor Editor = new FakeEditor();
 
-        private void connButton_Click(object sender, EventArgs e)
+        private void ConnButton_Click(object sender, EventArgs e)
         {
             var ip = ipTextBox.Text;
             var port = Convert.ToInt32(portTextBox.Text);
@@ -85,31 +82,11 @@ namespace USP.UI
 
             try
             {
-                if(idx == 2)
-                {
-                    var test = CoreUtil.GetNoexsBot(ip, port);
-                    var ps = test.GetPids();
-                    listBox1.Items.Clear();
-                    foreach(var p in ps)
-                    {
-                        listBox1.Items.Add(p);
-                    }
-                    listBox1.SelectedIndexChanged += (_, __) =>
-                    {
-                        label1.Text = $"{test.GetTitleId((ulong)listBox1.SelectedItem):X}";
-                    };
-                    connButton.Enabled = false;
-                    attachButton.Enabled = true;
-                }
-                else
-                {
-                    Editor = CoreUtil.GetSysBot(ip, port, (ProtocolType)idx);
+                Editor = CoreUtil.GetControlBot(ip, port, (ProtocolType)idx);
 
-                    DialogResult = DialogResult.OK;
-
-                    SaveSettings();
-                    Close();
-                }
+                DialogResult = DialogResult.OK;
+                SaveSettings();
+                Close();
             }
             catch (Exception ex)
             {
@@ -118,15 +95,8 @@ namespace USP.UI
             }
         }
 
-        private void attachButton_Click(object sender, EventArgs e)
+        private void AttachButton_Click(object sender, EventArgs e)
         {
-            if(listBox1.SelectedIndex != -1)
-            {
-                var ip = ipTextBox.Text;
-                var port = Convert.ToInt32(portTextBox.Text);
-                var test = CoreUtil.GetNoexsBot(ip, port);
-                //test.Attach((ulong)listBox1.SelectedItem);
-            }
         }
     }
 }

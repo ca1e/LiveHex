@@ -42,11 +42,14 @@ namespace USP.UI
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BT_ramEdit = new System.Windows.Forms.Button();
             this.L_consoleInfo = new System.Windows.Forms.Label();
+            this.BT_cleanTable = new System.Windows.Forms.Button();
+            this.BT_addRecord = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // LV_view
             // 
+            this.LV_view.AllowDrop = true;
             this.LV_view.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -57,9 +60,9 @@ namespace USP.UI
             this.columnHeader4,
             this.columnHeader5});
             this.LV_view.HideSelection = false;
-            this.LV_view.Location = new System.Drawing.Point(12, 135);
+            this.LV_view.Location = new System.Drawing.Point(0, 135);
             this.LV_view.Name = "LV_view";
-            this.LV_view.Size = new System.Drawing.Size(584, 272);
+            this.LV_view.Size = new System.Drawing.Size(599, 254);
             this.LV_view.TabIndex = 0;
             this.LV_view.UseCompatibleStateImageBehavior = false;
             this.LV_view.View = System.Windows.Forms.View.Details;
@@ -67,17 +70,17 @@ namespace USP.UI
             // columnHeader1
             // 
             this.columnHeader1.Text = "Active";
-            this.columnHeader1.Width = 61;
+            this.columnHeader1.Width = 73;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Description";
-            this.columnHeader2.Width = 94;
+            this.columnHeader2.Width = 123;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Address";
-            this.columnHeader3.Width = 110;
+            this.columnHeader3.Width = 129;
             // 
             // columnHeader4
             // 
@@ -87,7 +90,7 @@ namespace USP.UI
             // columnHeader5
             // 
             this.columnHeader5.Text = "Value";
-            this.columnHeader5.Width = 121;
+            this.columnHeader5.Width = 136;
             // 
             // menuStrip1
             // 
@@ -96,7 +99,7 @@ namespace USP.UI
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(608, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(599, 25);
             this.menuStrip1.TabIndex = 20;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -105,13 +108,13 @@ namespace USP.UI
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -120,13 +123,13 @@ namespace USP.UI
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(47, 21);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // BT_ramEdit
@@ -145,21 +148,45 @@ namespace USP.UI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.L_consoleInfo.Location = new System.Drawing.Point(10, 24);
             this.L_consoleInfo.Name = "L_consoleInfo";
-            this.L_consoleInfo.Size = new System.Drawing.Size(586, 19);
+            this.L_consoleInfo.Size = new System.Drawing.Size(577, 19);
             this.L_consoleInfo.TabIndex = 22;
             this.L_consoleInfo.Text = "No Console Connected";
             this.L_consoleInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // BT_cleanTable
+            // 
+            this.BT_cleanTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.BT_cleanTable.Location = new System.Drawing.Point(263, 97);
+            this.BT_cleanTable.Name = "BT_cleanTable";
+            this.BT_cleanTable.Size = new System.Drawing.Size(69, 32);
+            this.BT_cleanTable.TabIndex = 23;
+            this.BT_cleanTable.Text = "CleanAll";
+            this.BT_cleanTable.UseVisualStyleBackColor = true;
+            // 
+            // BT_addRecord
+            // 
+            this.BT_addRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.BT_addRecord.Location = new System.Drawing.Point(496, 97);
+            this.BT_addRecord.Name = "BT_addRecord";
+            this.BT_addRecord.Size = new System.Drawing.Size(91, 32);
+            this.BT_addRecord.TabIndex = 24;
+            this.BT_addRecord.Text = "Add";
+            this.BT_addRecord.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(608, 419);
+            this.ClientSize = new System.Drawing.Size(599, 401);
+            this.Controls.Add(this.BT_addRecord);
+            this.Controls.Add(this.BT_cleanTable);
             this.Controls.Add(this.L_consoleInfo);
             this.Controls.Add(this.BT_ramEdit);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.LV_view);
+            this.MinimumSize = new System.Drawing.Size(615, 440);
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NSME LiveHex";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -183,5 +210,7 @@ namespace USP.UI
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button BT_ramEdit;
         private System.Windows.Forms.Label L_consoleInfo;
+        private System.Windows.Forms.Button BT_cleanTable;
+        private System.Windows.Forms.Button BT_addRecord;
     }
 }

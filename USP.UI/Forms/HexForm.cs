@@ -17,6 +17,7 @@ namespace USP.UI
 
             InitControls();
             InitBot(b);
+            InitRam();
         }
 
         private void InitBot(IRAMEditor b)
@@ -30,7 +31,19 @@ namespace USP.UI
                 Debug.Write("Heap Zero!");
             }
 
-            Text = $"HexEdit tid:{info.TitleId:X}, bid:{info.BuildId:X}";
+            InitTitle();
+        }
+
+        private void InitTitle()
+        {
+            var infoStr = $"[tid:{info.TitleId:X}, bid:{info.BuildId:X}]";
+            Text = $"HexEdit - {infoStr}";
+        }
+
+        private void InitRam()
+        {
+            var addr = MyCoreBot.GetPointer(textBox1.Text);
+            hexRltTextBox.Text = $"{addr:X8}";
         }
 
         private void InitControls()
@@ -40,13 +53,19 @@ namespace USP.UI
             radioButton2.CheckedChanged += (_, __) => { hexBox1.GroupSize = 8; };
         }
 
-        private void parseButton_Click(object sender, EventArgs e)
+        private void ParseButton_Click(object sender, EventArgs e)
         {
-            var addr = MyCoreBot.GetPointer(textBox1.Text);
-            hexRltTextBox.Text = $"{addr:X8}";
+            try
+            {
+                InitRam();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private void readButton_Click(object sender, EventArgs e)
+        private void ReadButton_Click(object sender, EventArgs e)
         {
             var provider = new RAMProvider{ CoreBot = MyCoreBot, ByteLength = Convert.ToInt32(hexOfTextBox.Text) };
             provider.Address = hexRltTextBox.Text;
@@ -55,7 +74,7 @@ namespace USP.UI
             hexBox1.ByteProvider = provider;
         }
 
-        private void writeButton_Click(object sender, EventArgs e)
+        private void WriteButton_Click(object sender, EventArgs e)
         {
             hexBox1.ByteProvider?.ApplyChanges();
 

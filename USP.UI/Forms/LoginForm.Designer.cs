@@ -41,7 +41,7 @@ namespace USP.UI
             // 
             // ipTextBox
             // 
-            this.ipTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ipTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ipTextBox.Location = new System.Drawing.Point(53, 34);
             this.ipTextBox.Name = "ipTextBox";
             this.ipTextBox.Size = new System.Drawing.Size(150, 26);
@@ -51,7 +51,7 @@ namespace USP.UI
             // CB_Protocol
             // 
             this.CB_Protocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_Protocol.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CB_Protocol.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.CB_Protocol.FormattingEnabled = true;
             this.CB_Protocol.Location = new System.Drawing.Point(53, 122);
             this.CB_Protocol.Name = "CB_Protocol";
@@ -60,7 +60,7 @@ namespace USP.UI
             // 
             // portTextBox
             // 
-            this.portTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.portTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.portTextBox.Location = new System.Drawing.Point(53, 66);
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(150, 26);
@@ -69,19 +69,19 @@ namespace USP.UI
             // 
             // connButton
             // 
-            this.connButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.connButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.connButton.Location = new System.Drawing.Point(53, 169);
             this.connButton.Name = "connButton";
             this.connButton.Size = new System.Drawing.Size(150, 35);
             this.connButton.TabIndex = 5;
             this.connButton.Text = "Connect";
             this.connButton.UseVisualStyleBackColor = true;
-            this.connButton.Click += new System.EventHandler(this.connButton_Click);
+            this.connButton.Click += new System.EventHandler(this.ConnButton_Click);
             // 
             // usbComboBox
             // 
             this.usbComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.usbComboBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.usbComboBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.usbComboBox.FormattingEnabled = true;
             this.usbComboBox.Location = new System.Drawing.Point(53, 34);
             this.usbComboBox.Name = "usbComboBox";
@@ -101,14 +101,14 @@ namespace USP.UI
             // attachButton
             // 
             this.attachButton.Enabled = false;
-            this.attachButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.attachButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.attachButton.Location = new System.Drawing.Point(260, 169);
             this.attachButton.Name = "attachButton";
             this.attachButton.Size = new System.Drawing.Size(150, 35);
             this.attachButton.TabIndex = 11;
             this.attachButton.Text = "Attach";
             this.attachButton.UseVisualStyleBackColor = true;
-            this.attachButton.Click += new System.EventHandler(this.attachButton_Click);
+            this.attachButton.Click += new System.EventHandler(this.AttachButton_Click);
             // 
             // label1
             // 
@@ -123,7 +123,7 @@ namespace USP.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(243, 241);
+            this.ClientSize = new System.Drawing.Size(248, 235);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.attachButton);
             this.Controls.Add(this.listBox1);
@@ -138,7 +138,7 @@ namespace USP.UI
             this.MinimizeBox = false;
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Login";
+            this.Text = "Open";
             this.ResumeLayout(false);
             this.PerformLayout();
 

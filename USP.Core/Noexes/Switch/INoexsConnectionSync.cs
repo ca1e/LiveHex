@@ -7,10 +7,12 @@ namespace Noexes.Base
     {
         IEnumerable<ulong> GetPids();
 
-        ulong CurrentPid();
-
         ulong GetTitleId(ulong pid);
 
-        int Attach(ulong pid);
+        int Attach();
+
+        void Resume();
+
+        void InitInfo();
     }
 }

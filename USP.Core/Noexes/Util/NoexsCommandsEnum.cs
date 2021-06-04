@@ -16,7 +16,7 @@ namespace Noexes.Base
         Resume = 0x08,
         Pause = 0x09,
         Attach = 0x0A,
-        detach = 0x0B,
+        Detach = 0x0B,
         QueryMemSingle = 0x0C,
         QueryMemMulti = 0x0D,
         CurrentPid = 0x0E,
@@ -26,7 +26,7 @@ namespace Noexes.Base
         Disconnect = 0x12,
         ReadMemMulti = 0x13,
         SetBreakpoint = 0x14,
-
+        // extra
         FreezeAddress = 0x15,
         SearchLocal = 0x16,
         FetchResult = 0x17,
