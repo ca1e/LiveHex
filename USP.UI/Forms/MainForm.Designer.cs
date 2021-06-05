@@ -37,13 +37,14 @@ namespace USP.UI
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BT_ramEdit = new System.Windows.Forms.Button();
             this.L_consoleInfo = new System.Windows.Forms.Label();
             this.BT_cleanTable = new System.Windows.Forms.Button();
             this.BT_addRecord = new System.Windows.Forms.Button();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -106,17 +107,18 @@ namespace USP.UI
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.connectToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // openToolStripMenuItem
+            // connectToolStripMenuItem
             // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectToolStripMenuItem.Text = "Connect";
+            this.connectToolStripMenuItem.Click += new System.EventHandler(this.ConnectToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -146,9 +148,9 @@ namespace USP.UI
             // 
             this.L_consoleInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.L_consoleInfo.Location = new System.Drawing.Point(10, 24);
+            this.L_consoleInfo.Location = new System.Drawing.Point(135, 24);
             this.L_consoleInfo.Name = "L_consoleInfo";
-            this.L_consoleInfo.Size = new System.Drawing.Size(577, 19);
+            this.L_consoleInfo.Size = new System.Drawing.Size(464, 19);
             this.L_consoleInfo.TabIndex = 22;
             this.L_consoleInfo.Text = "No Console Connected";
             this.L_consoleInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -172,6 +174,13 @@ namespace USP.UI
             this.BT_addRecord.TabIndex = 24;
             this.BT_addRecord.Text = "Add";
             this.BT_addRecord.UseVisualStyleBackColor = true;
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -205,12 +214,13 @@ namespace USP.UI
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button BT_ramEdit;
         private System.Windows.Forms.Label L_consoleInfo;
         private System.Windows.Forms.Button BT_cleanTable;
         private System.Windows.Forms.Button BT_addRecord;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }

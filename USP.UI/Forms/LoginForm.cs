@@ -54,6 +54,11 @@ namespace USP.UI
             CB_Protocol.SelectedIndexChanged += (_, __) =>
             {
                 ipTextBox.Visible = CB_Protocol.SelectedIndex != 1;
+                this.Width = CB_Protocol.SelectedIndex switch
+                {
+                    2 => 470,
+                    _ => 270,
+                };
                 portTextBox.Text = CB_Protocol.SelectedIndex switch
                 {
                     0 => "6000",
@@ -73,6 +78,7 @@ namespace USP.UI
         }
 
         public IRAMEditor Editor = new FakeEditor();
+        private NoexsBot test;
 
         private void ConnButton_Click(object sender, EventArgs e)
         {
@@ -82,21 +88,65 @@ namespace USP.UI
 
             try
             {
-                Editor = CoreUtil.GetControlBot(ip, port, (ProtocolType)idx);
+                if(idx == 2)
+                {
+                    test = CoreUtil.GetNoexsBot(ip, port);
 
-                DialogResult = DialogResult.OK;
-                SaveSettings();
-                Close();
+                    listBox1.Items.Clear();
+                    foreach (var p in test.ListPids())
+                    {
+                        listBox1.Items.Add(p);
+                    }
+                    listBox1.SelectedIndexChanged += (_, __) =>
+                    {
+                        label1.Text = $"{test.TitleIdPid((ulong)listBox1.SelectedItem):X}";
+                    };
+                    connButton.Enabled = false;
+                    attachButton.Enabled = true;
+
+                }
+                else
+                {
+                    Editor = CoreUtil.GetSysBot(ip, port, (ProtocolType)idx);
+
+                    DialogResult = DialogResult.OK;
+                    SaveSettings();
+                    Close();
+                }
             }
             catch (Exception ex)
             {
                 DialogResult = DialogResult.Cancel;
-                MessageBox.Show(ex.Message);
+                WinFormsUtil.Error(ex.Message);
             }
         }
 
         private void AttachButton_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedIndex != -1)
+            {
+                try
+                {
+                    if (test == null)
+                    {
+                        var ip = ipTextBox.Text;
+                        var port = Convert.ToInt32(portTextBox.Text);
+                        test = CoreUtil.GetNoexsBot(ip, port);
+                    }
+
+                    test.Attach((ulong)listBox1.SelectedItem);
+                    Editor = test;
+
+                    DialogResult = DialogResult.OK;
+                    SaveSettings();
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    DialogResult = DialogResult.Cancel;
+                    WinFormsUtil.Error(ex.Message);
+                }
+            }
         }
     }
 }

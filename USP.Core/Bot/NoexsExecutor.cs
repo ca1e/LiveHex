@@ -1,6 +1,7 @@
 ﻿using Noexes.Base;
 using SysBot.Base;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace USP.Core
 {
@@ -18,27 +19,29 @@ namespace USP.Core
         public void Run()
         {
             Connection.Connect();
+        }
 
-            var result = Connection.Attach();
-            System.Diagnostics.Debug.WriteLine($"[Attach] {result}");
-            if(result == 0)
+        public IEnumerable<ulong> ListPids() => Connection.GetPids();
+
+        public ulong TitleIdPid(ulong pid) => Connection.GetTitleIdFromPid(pid);
+
+        public void Attach(ulong pid)
+        {
+            var result = Connection.Attach(pid);
+            if (result == 0)
             {
                 Connection.Resume();
             }
             else
             {
+                System.Diagnostics.Debug.WriteLine($"[Attach] code {result}");
+                Connection.Disconnect();
                 throw new System.Exception($"err code: {result}");
             }
         }
 
-        public IEnumerable<ulong> GetPids()
-        {
-            return Connection.GetPids();
-        }
-
         public ProcessInfo GetInfo()
         {
-            Connection.InitInfo();
             return new ProcessInfo
             {
                 MainBase = Connection.GetMainNsoBase(),
@@ -58,13 +61,12 @@ namespace USP.Core
         public ulong GetPointer(string evalStr)
         {
             var vars = new Dictionary<string, ulong>() { { "main", Connection.GetMainNsoBase() }, { "heap", Connection.GetHeapBase() } };
-            var eval = new ExpressionEvaluator(vars, (ulong addr) => {
+            var Eval = new ExpressionEvaluator(vars, (ulong addr) => {
                 var data = Connection.ReadBytesAbsolute(addr, 0x8);
                 var realaddr = new ValueData(0x8, data);
-                // Debug.WriteLine($"{realaddr.HumanValue:X}");
                 return realaddr.HumanValue;
             });
-            return eval.Eval(evalStr);
+            return Eval.Eval(evalStr);
         }
     }
 }

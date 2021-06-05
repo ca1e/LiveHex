@@ -5,6 +5,8 @@ namespace Noexes.Base
 {
     public record MemoryInfo
     {
+        public static int InfoSize = 24;
+
         public ulong Address { get; init; } = ulong.MinValue;
         public ulong Size { get; init; } = ulong.MinValue;
         public uint Type { get; init; } = uint.MinValue;

@@ -1,4 +1,6 @@
-﻿using SysBot.Base;
+﻿using Noexes.Base;
+using SysBot.Base;
+using System;
 using System.Collections.Generic;
 
 namespace USP.Core
@@ -7,31 +9,37 @@ namespace USP.Core
     {
         public static List<string> USBPort => USBUtil.GetList();
 
-        public static IRAMEditor GetControlBot(string ip, int port, ProtocolType protocol = ProtocolType.WiFi)
+        public static SysBot GetSysBot(string ip, int port, ProtocolType protocol = ProtocolType.WiFi)
         {
-            if(protocol == ProtocolType.Noexs)
+            var cfg = BotConfigUtil.GetConfig<SwitchConnectionConfig>(ip, port);
+
+            if (protocol == ProtocolType.Noexs)
             {
-                var cfg2 = BotConfigUtil.GetConfig<NoexsConfig>(ip, port);
-
-                var bot = new NoexsBot(cfg2);
-                bot.Run();
-
-                return bot;
+                throw new Exception("unsupport protocol");
             }
 
-            else
-            {
-                var cfg = BotConfigUtil.GetConfig<SysBotConfig>(ip, port);
+            if (protocol == ProtocolType.USB) cfg.Protocol = SwitchProtocol.USB;
 
-                if (protocol == ProtocolType.USB) cfg.Protocol = SwitchProtocol.USB;
+            var bot = new SysBot(cfg);
+            bot.Run();
 
-                var bot = new SysBot(cfg);
-                bot.Run();
+            return bot;
+        }
 
-                return bot;
-            }
+        public static NoexsBot GetNoexsBot(string ip, int port)
+        {
+            var cfg = BotConfigUtil.GetConfig<NoexsConnectionConfig>(ip, port);
+
+            var bot = new NoexsBot(cfg);
+            bot.Run();
+
+            return bot;
         }
     }
+
+    public sealed class SysBot : CoreExecutor<SwitchConnectionConfig> { public SysBot(SwitchConnectionConfig cfg) : base(cfg) { } }
+
+    public sealed class NoexsBot : NoexsExecutor<NoexsConnectionConfig> { public NoexsBot(NoexsConnectionConfig cfg) : base(cfg) { } }
 
     public enum ProtocolType // as SwitchProtocol
     {

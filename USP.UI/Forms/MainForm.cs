@@ -53,6 +53,11 @@ namespace USP.UI
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void ConnectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             var form = new LoginForm();
             if (form.ShowDialog() == DialogResult.OK)
             {

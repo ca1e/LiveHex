@@ -14,4 +14,13 @@ namespace USP.Core
 
         ulong GetPointer(string parser);
     }
+
+    public record ProcessInfo
+    {
+        public ulong MainBase { get; init; } = ulong.MinValue;
+        public ulong HeepBase { get; init; } = ulong.MinValue;
+
+        public ulong TitleId { get; init; } = ulong.MaxValue;
+        public ulong BuildId { get; init; } = ulong.MaxValue;
+    }
 }
