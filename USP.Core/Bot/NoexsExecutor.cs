@@ -21,7 +21,7 @@ namespace USP.Core
             Connection.Connect();
         }
 
-        public IEnumerable<ulong> ListPids() => Connection.GetPids();
+        public IEnumerable<ulong> ListPids() => Connection.GetPids().OrderByDescending(i=>i);
 
         public ulong TitleIdPid(ulong pid) => Connection.GetTitleIdFromPid(pid);
 
@@ -38,6 +38,11 @@ namespace USP.Core
                 Connection.Disconnect();
                 throw new System.Exception($"err code: {result}");
             }
+        }
+
+        public void Detach()
+        {
+            Connection.Detach();
         }
 
         public ProcessInfo GetInfo()
@@ -63,7 +68,7 @@ namespace USP.Core
             var vars = new Dictionary<string, ulong>() { { "main", Connection.GetMainNsoBase() }, { "heap", Connection.GetHeapBase() } };
             var Eval = new ExpressionEvaluator(vars, (ulong addr) => {
                 var data = Connection.ReadBytesAbsolute(addr, 0x8);
-                var realaddr = new ValueData(0x8, data);
+                var realaddr = new ValueData(data, ValueType.LONG);
                 return realaddr.HumanValue;
             });
             return Eval.Eval(evalStr);

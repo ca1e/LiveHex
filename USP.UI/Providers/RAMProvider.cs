@@ -6,7 +6,7 @@ namespace USP.UI
 {
     sealed class RAMProvider : IByteProvider
     {
-        public IRAMEditor CoreBot { get;  init; }
+        public IRAMEditor Editor { get;  init; }
 
         public ulong Addr;
         public string Address
@@ -21,7 +21,7 @@ namespace USP.UI
                 {
                     Addr = ulong.Parse(value, System.Globalization.NumberStyles.HexNumber);
 
-                    Bytes = CoreBot.ReadAbsolute(Addr, ByteLength);
+                    Bytes = Editor.ReadAbsolute(Addr, ByteLength);
                 }
                 catch
                 {
@@ -39,12 +39,12 @@ namespace USP.UI
         public event EventHandler LengthChanged;
         public event EventHandler Changed;
 
-        void OnChanged(EventArgs e)
-            => Changed?.Invoke(this, e);
+        void OnLengthChanged(EventArgs e) => LengthChanged?.Invoke(this, e);
+        void OnChanged(EventArgs e) => Changed?.Invoke(this, e);
 
         public void ApplyChanges()
         {
-            CoreBot.WriteAbsolute(Bytes, Addr);
+            Editor.WriteAbsolute(Bytes, Addr);
             changed = false;
         }
 
@@ -57,6 +57,7 @@ namespace USP.UI
 
         public void InsertBytes(long index, byte[] bs)
         {
+            OnLengthChanged(EventArgs.Empty);
             throw new NotImplementedException();
         }
 

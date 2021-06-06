@@ -56,8 +56,8 @@ namespace USP.UI
                 ipTextBox.Visible = CB_Protocol.SelectedIndex != 1;
                 this.Width = CB_Protocol.SelectedIndex switch
                 {
-                    2 => 470,
-                    _ => 270,
+                    2 => 400,
+                    _ => 200,
                 };
                 portTextBox.Text = CB_Protocol.SelectedIndex switch
                 {
@@ -92,17 +92,17 @@ namespace USP.UI
                 {
                     test = CoreUtil.GetNoexsBot(ip, port);
 
-                    listBox1.Items.Clear();
+                    LB_pids.Items.Clear();
                     foreach (var p in test.ListPids())
                     {
-                        listBox1.Items.Add(p);
+                        LB_pids.Items.Add(p);
                     }
-                    listBox1.SelectedIndexChanged += (_, __) =>
+                    LB_pids.SelectedIndexChanged += (_, __) =>
                     {
-                        label1.Text = $"{test.TitleIdPid((ulong)listBox1.SelectedItem):X}";
+                        label1.Text = $"[tid]{test.TitleIdPid((ulong)LB_pids.SelectedItem):X}";
                     };
-                    connButton.Enabled = false;
-                    attachButton.Enabled = true;
+                    BT_conn.Enabled = false;
+                    P_pids.Enabled = true;
 
                 }
                 else
@@ -123,7 +123,7 @@ namespace USP.UI
 
         private void AttachButton_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
+            if (LB_pids.SelectedIndex != -1)
             {
                 try
                 {
@@ -134,7 +134,7 @@ namespace USP.UI
                         test = CoreUtil.GetNoexsBot(ip, port);
                     }
 
-                    test.Attach((ulong)listBox1.SelectedItem);
+                    test.Attach((ulong)LB_pids.SelectedItem);
                     Editor = test;
 
                     DialogResult = DialogResult.OK;
@@ -147,6 +147,11 @@ namespace USP.UI
                     WinFormsUtil.Error(ex.Message);
                 }
             }
+        }
+
+        private void BT_detach_Click(object sender, EventArgs e)
+        {
+            test?.Detach();
         }
     }
 }

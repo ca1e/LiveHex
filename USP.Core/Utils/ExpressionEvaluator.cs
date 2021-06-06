@@ -167,7 +167,7 @@ namespace USP.Core
                         t.value = ulong.Parse(t.value.ToString(), System.Globalization.NumberStyles.HexNumber);
                         t.type = CONSTANT;
                     }
-                    catch(Exception _)
+                    catch (Exception)
                     {
                     }
                 }

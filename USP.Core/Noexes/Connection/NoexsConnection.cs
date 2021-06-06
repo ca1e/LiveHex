@@ -84,7 +84,7 @@ namespace Noexes.Base
         {
             var buffer = new byte[length];
             var i = Read(buffer);
-
+            Log($"[read] Real: {i}");
             Log($"[read] Require: {length}, Get:{i}, Available: {Connection.Available}");
 
             return buffer;

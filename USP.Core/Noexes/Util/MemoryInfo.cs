@@ -9,24 +9,15 @@ namespace Noexes.Base
 
         public ulong Address { get; init; } = ulong.MinValue;
         public ulong Size { get; init; } = ulong.MinValue;
-        public uint Type { get; init; } = uint.MinValue;
+        public MemoryType Type { get; init; } = uint.MinValue;
         public uint Perm { get; init; } = uint.MinValue;
-
-        public MemoryInfo()
-        {
-        }
 
         public MemoryInfo(byte[] data)
         {
-            Address = new ValueData(8, data.Take(8).ToArray()).HumanValue;
-            Size = new ValueData(8, data.Skip(8).Take(8).ToArray()).HumanValue;
-            Type = (uint)new ValueData(8, data.Skip(16).Take(4).ToArray()).HumanValue;
-            Perm = (uint)new ValueData(8, data.Skip(20).Take(4).ToArray()).HumanValue;
-        }
-
-        public MemoryType GetMemType()
-        {
-            return (MemoryType)Type;
+            Address = new ValueData(data.Take(8).ToArray(), ValueType.LONG).HumanValue;
+            Size = new ValueData(data.Skip(8).Take(8).ToArray(), ValueType.LONG).HumanValue;
+            Type = (MemoryType)new ValueData(data.Skip(16).Take(4).ToArray(), ValueType.INT).HumanValue;
+            Perm = (uint)new ValueData(data.Skip(20).Take(4).ToArray(), ValueType.INT).HumanValue;
         }
     }
 

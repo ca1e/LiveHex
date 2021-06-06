@@ -20,12 +20,14 @@ namespace USP.Core
 
         private static IEnumerable<T> LoadPlugins<T>(IEnumerable<Type> pluginTypes) where T : class
         {
+#nullable enable
             foreach (var t in pluginTypes)
             {
                 var activate = (T?) Activator.CreateInstance(t);
                 if (activate != null)
                     yield return activate;
             }
+#nullable disable
         }
 
         private static IEnumerable<Assembly> GetAssemblies(IEnumerable<string> dllFileNames)

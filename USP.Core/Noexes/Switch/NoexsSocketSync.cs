@@ -14,12 +14,14 @@ namespace Noexes.Base
         /// </summary>
         int INoexsConnectionSync.Attach(ulong pid)
         {
-            Log($"[PID] Current pid: {CurrentPid()}");
+            var result = Attach(pid);
             Log($"[PID] Attached pid: {AttachedPid()}");
-            return Attach(pid);
+            return result;
         }
 
         void INoexsConnectionSync.Resume() => Resume();
+
+        void INoexsConnectionSync.Detach() => Detach();
 
         private ulong Main_ = ulong.MinValue;
         private ulong Heap_ = ulong.MinValue;
@@ -27,45 +29,13 @@ namespace Noexes.Base
         private void InitInfo()
         {
             var mi = QueryMulti(0, 1000);
-            //var mainm = mi.Where(m=>m.GetMemType() == MemoryType.CODE_STATIC && m.Perm == 0b101).Skip(1).First();
-            //var heapm = mi.Where(m => m.GetMemType() == MemoryType.HEAP).OrderBy(m=>m.Address).First();
 
-            int moduleCount = 0;
-            foreach (var m in mi)
-            {
-                if (m.GetMemType() == MemoryType.CODE_STATIC && m.Perm == 0b101)
-                {
-                    moduleCount++;
-                }
-            }
-            var mod = 0;
-            var heapB = false;
-            foreach (var m in mi)
-            {
-                if (!heapB && m.GetMemType() == MemoryType.HEAP)
-                {
-                    heapB = true;
-                    Heap_ = m.Address;
-                    continue;
-                }
-                if (m.GetMemType() == MemoryType.CODE_STATIC && m.Perm == 0b101)
-                {
-                    if (mod == 0 && moduleCount == 1)
-                    {
-                        Main_ = m.Address;
-                        continue;
-                    }
-                    if (moduleCount > 1)
-                    {
-                        if(mod == 1)
-                        {
-                            Main_ = m.Address;
-                            continue;
-                        }
-                    }
-                    mod++;
-                }
-            }
+            var ml = mi.Where(m => m.Type == MemoryType.CODE_STATIC && m.Perm == 0b101).OrderBy(m => m.Address);
+            var mainm = ml.LongCount() > 1 ? ml.Skip(1).First() : ml.First();
+            Main_ = mainm?.Address ?? ulong.MinValue;
+
+            var heapm = mi.Where(m => m.Type == MemoryType.HEAP).OrderBy(m=>m.Address).First();
+            Heap_ = heapm?.Address ?? ulong.MinValue;
         }
 
         public ulong GetMainNsoBase()
@@ -99,8 +69,8 @@ namespace Noexes.Base
             };
         }
 
-        public byte[] ReadBytes(uint offset, int length) => ReadInternal(offset, length, SwitchOffsetType.Heap);
-        public byte[] ReadBytesMain(ulong offset, int length) => ReadInternal(offset, length, SwitchOffsetType.Main);
+        public byte[] ReadBytes(uint offset, int length) => throw new NotImplementedException();
+        public byte[] ReadBytesMain(ulong offset, int length) => throw new NotImplementedException();
         public byte[] ReadBytesAbsolute(ulong offset, int length) => ReadInternal(offset, length, SwitchOffsetType.Absolute);
         public void WriteBytes(byte[] data, uint offset) => WriteMem(data, Heap_ + offset);
         public void WriteBytesMain(byte[] data, ulong offset) => WriteMem(data, Main_ + offset);

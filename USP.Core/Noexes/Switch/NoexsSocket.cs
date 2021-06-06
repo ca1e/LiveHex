@@ -141,7 +141,7 @@ namespace Noexes.Base
                 for (count = 0; count < max; count++)
                 {
                     var info = ReadInfo();
-                    if (info.GetMemType() == MemoryType.RESERVED)
+                    if (info.Type == MemoryType.RESERVED)
                     {
                         break;
                     }
