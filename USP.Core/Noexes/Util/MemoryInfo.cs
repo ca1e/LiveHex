@@ -21,7 +21,7 @@ namespace Noexes.Base
         }
     }
 
-    public enum MemoryType
+    public enum MemoryType : uint
     {
         UNMAPPED = 0,
         IO = 0x01,

@@ -40,9 +40,9 @@ def get_1st_offset(s,offset1 = 'D687730'):
     if int(a, 16) == 0:
         return a
     
-    #[[[[main+D687730]+160]+10]
-    n=get_next_addr(s,a,0x160)
-    n=get_next_addr(s,n,0x10)
+    #[[[[main+DB446D0]+58]+18]
+    n=get_next_addr(s,a,0x58)
+    n=get_next_addr(s,n,0x18)
 
     return n
 
@@ -95,20 +95,22 @@ def set_item(s,n,bag_num,itemid = -1,cont = -1):
         return
 
 s=connect("192.168.1.103")
-send_command(s, f"pointerAll 0xD9674B8 0x60 0x10")
+#send_command(s, f"pointerAll 0xD9674B8 0x60 0x10")
 # getTitleID
 # getBuildID
 #getVersion
 #pointer
 #pointerAll
 #pointerPeek/Poke
+send_command(s, f"getTitleID")
 time.sleep(0.1) #give time to answer
 
 r = s.recv(17)
 print(r)
 
-#n=get_1st_offset(s, "D687730")
-#print(n)
+n=get_1st_offset(s, "DB446D0")
+print(n)
+send_command(s, f"peekAbsolute {hex(a)} {lengh}")
 
 #idx = 99
 #item = get_item(s,n, idx)

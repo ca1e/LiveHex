@@ -8,7 +8,7 @@ namespace USP.Core
         public readonly ISwitchConnectionSync Connection;
         public readonly T Config;
 
-        protected CoreExecutor(IConsoleBotManaged<ISwitchConnectionSync, IConsoleConnectionAsync> cfg)
+        protected CoreExecutor(IConsoleBotManaged<ISwitchConnectionSync, ISwitchConnectionAsync> cfg)
         {
             Config = (T)cfg;
             Connection = cfg.CreateSync();

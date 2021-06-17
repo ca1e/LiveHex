@@ -128,7 +128,7 @@ namespace Noexes.Base
         }
     }
 
-    internal enum NoexsCommandsEnum
+    internal enum NoexsCommandsEnum : byte
     {
         Abort = 0x00,
 
