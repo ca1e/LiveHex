@@ -20,10 +20,27 @@ def connect(nip,port=6000):
     s.connect((nip, port))
     return s
 
+def get_8(s, cmd):
+    send_command(s, cmd)
+    time.sleep(0.1) #give time to answer
+    return s.recv(8 * 2 + 1)
+
+def get_version(s):
+    r = get_8(s, f"getVersion")
+    print(r)
+
+def get_title_id(s):
+    r = get_8(s, f"getTitleID")
+    print(r)
+
+def get_build_id(s):
+    r = get_8(s, f"getBuildID")
+    print(r)
+
 def set_addr(s,addr,data):
     ed = data.to_bytes(2,'little')
     st = binascii.hexlify(ed).decode()
-    send_command(s, f"pokeAbsolute {hex(addr)} 0x{st}")
+    send_command(s, f"pokeAbsolute {hex(addr)} 0x{st}") # hex already has 0x prefix
 
 def get_1st_offset(s,offset1 = 'D687730'):
     lengh = 5
@@ -94,24 +111,14 @@ def set_item(s,n,bag_num,itemid = -1,cont = -1):
         print('cannt write item')
         return
 
-s=connect("192.168.1.103")
+s=connect("192.168.1.26")
 #send_command(s, f"pointerAll 0xD9674B8 0x60 0x10")
-# getTitleID
-# getBuildID
-#getVersion
 #pointer
 #pointerAll
 #pointerPeek/Poke
-send_command(s, f"getTitleID")
-time.sleep(0.1) #give time to answer
-
-r = s.recv(17)
-print(r)
-
-n=get_1st_offset(s, "DB446D0")
-print(n)
-send_command(s, f"peekAbsolute {hex(a)} {lengh}")
-
+get_version(s)
+get_title_id(s)
+get_build_id(s)
 #idx = 99
 #item = get_item(s,n, idx)
 #set_item(s,n, idx, 172,990)
