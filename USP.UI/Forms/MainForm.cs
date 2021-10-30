@@ -38,7 +38,7 @@ namespace USP.UI
 
         private void FormLoadCheck()
         {
-            this.Text += CurrentProgramVersion;
+            this.Text = $"NSME LiveHex - v{CurrentProgramVersion}";
             L_consoleInfo.Text = "No Console Connected";
         }
 

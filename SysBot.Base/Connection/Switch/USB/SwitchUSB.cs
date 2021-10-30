@@ -10,9 +10,6 @@ namespace SysBot.Base
     /// </summary>
     public abstract class SwitchUSB : IConsoleConnection
     {
-        private static readonly ushort VID = 0x057E;
-        private static readonly ushort PID = 0x3000;
-
         public string Name { get; }
         public string Label { get; set; }
         public bool Connected { get; protected set; }
@@ -79,13 +76,13 @@ namespace SysBot.Base
             {
                 foreach (UsbRegistry ur in UsbDevice.AllLibUsbDevices)
                 {
-                    if (ur.Vid != VID)
+                    if (ur.Vid != 0x057E)
                         continue;
-                    if (ur.Pid != PID)
+                    if (ur.Pid != 0x3000)
                         continue;
 
                     ur.DeviceProperties.TryGetValue("Address", out object addr);
-                    if (Port.ToString() != addr.ToString())
+                    if (Port.ToString() != addr?.ToString())
                         continue;
 
                     return ur.Device;
@@ -98,14 +95,14 @@ namespace SysBot.Base
         {
             lock (_sync)
             {
-                if (SwDevice != null)
+                if (SwDevice is { } x)
                 {
                     Send(SwitchCommand.DetachController(false));
-                    if (SwDevice.IsOpen)
+                    if (x.IsOpen)
                     {
-                        if (SwDevice is IUsbDevice wholeUsbDevice)
+                        if (x is IUsbDevice wholeUsbDevice)
                             wholeUsbDevice.ReleaseInterface(0);
-                        SwDevice.Close();
+                        x.Close();
                     }
                 }
 
@@ -203,7 +200,7 @@ namespace SysBot.Base
             {
                 var slice = data.SliceSafe(i, MaximumTransferSize);
                 Write(slice, offset + (uint)i, method);
-                Thread.Sleep(MaximumTransferSize / DelayFactor + BaseDelay);
+                Thread.Sleep((MaximumTransferSize / DelayFactor) + BaseDelay);
             }
         }
 
@@ -213,7 +210,7 @@ namespace SysBot.Base
             for (int i = 0; i < length; i += MaximumTransferSize)
             {
                 Read(offset + (uint)i, Math.Min(MaximumTransferSize, length - i), method).CopyTo(result, i);
-                Thread.Sleep(MaximumTransferSize / DelayFactor + BaseDelay);
+                Thread.Sleep((MaximumTransferSize / DelayFactor) + BaseDelay);
             }
             return result;
         }
