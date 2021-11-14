@@ -36,6 +36,7 @@ namespace USP.UI
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cMS_listview = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MS_main = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,7 +50,6 @@ namespace USP.UI
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Stas_main = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.cMS_listview = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MS_main.SuspendLayout();
             this.Stas_main.SuspendLayout();
             this.SuspendLayout();
@@ -104,6 +104,11 @@ namespace USP.UI
             // 
             this.columnHeader5.Text = "Value";
             this.columnHeader5.Width = 125;
+            // 
+            // cMS_listview
+            // 
+            this.cMS_listview.Name = "cMS_listview";
+            this.cMS_listview.Size = new System.Drawing.Size(61, 4);
             // 
             // MS_main
             // 
@@ -160,7 +165,7 @@ namespace USP.UI
             this.BT_ramEdit.Name = "BT_ramEdit";
             this.BT_ramEdit.Size = new System.Drawing.Size(91, 32);
             this.BT_ramEdit.TabIndex = 21;
-            this.BT_ramEdit.Text = "RAM Edit";
+            this.BT_ramEdit.Text = " RAM";
             this.BT_ramEdit.UseVisualStyleBackColor = true;
             this.BT_ramEdit.Click += new System.EventHandler(this.BT_ramEdit_Click);
             // 
@@ -214,11 +219,6 @@ namespace USP.UI
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(67, 17);
             this.toolStripStatusLabel1.Text = "test status";
-            // 
-            // cMS_listview
-            // 
-            this.cMS_listview.Name = "cMS_listview";
-            this.cMS_listview.Size = new System.Drawing.Size(61, 4);
             // 
             // MainForm
             // 

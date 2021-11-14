@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using USP.Core;
+using USP.UI.Utils;
 
 namespace USP.UI
 {
@@ -77,7 +78,7 @@ namespace USP.UI
             CB_Protocol.SelectedIndex = 0; // default option
         }
 
-        public IRAMEditor Editor = new FakeEditor();
+        public IRAMEditor Editor = new Editor.FakeEditor();
         private NoexsBot test;
 
         private void ConnButton_Click(object sender, EventArgs e)

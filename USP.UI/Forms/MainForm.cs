@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Media;
 using System.Reflection;
 using System.Windows.Forms;
 using USP.Core;
+using USP.UI.Script;
 
 namespace USP.UI
 {
@@ -31,7 +33,7 @@ namespace USP.UI
 
         #region Important Variables
 
-        private IRAMEditor MyCoreBot = new FakeEditor();
+        private IRAMEditor MyCoreBot = new Editor.FakeEditor();
         private static readonly List<IPlugin> Plugins = new();
 
         #endregion
@@ -81,28 +83,57 @@ namespace USP.UI
 
         private void BT_addRecord_Click(object sender, EventArgs e)
         {
-            //LV_view.RetrieveVirtualItem += new RetrieveVirtualItemEventHandler(MyList_RetrieveVirtualItem);
             LV_view.BeginUpdate();
 
-            for (int i = 0; i < 10; i++)
+            var form = new AddFunctionForm();
+            if (form.ShowDialog() == DialogResult.OK)
             {
-                ListViewItem lvi = new();
-
-                //lvi.Text = "subitem" + i;
-                lvi.SubItems.Add("description,第" + i + "行");
-                lvi.SubItems.Add("address,第" + i + "行");
-                lvi.SubItems.Add("type,第" + i + "行");
-                lvi.SubItems.Add("value,第" + i + "行");
-
-                LV_view.Items.Add(lvi);
+                var data = form.ScriptResult;
+                var li = GenListItem(data);
+                LV_view.Items.Add(li);
             }
 
             LV_view.EndUpdate();
         }
 
+        private ListViewItem GenListItem(ScriptRecord data)
+        {
+            ListViewItem lvi = new();
+            lvi.SubItems.Add(data.Description);
+            lvi.SubItems.Add(data.Address);
+            lvi.SubItems.Add(data.type.ToString());
+            
+            var pointer = MyCoreBot.GetPointer(data.Address);
+            if (pointer == ulong.MaxValue)
+            {
+                lvi.SubItems.Add("??");
+            }
+            else
+            {
+                var len = data.type switch
+                {
+                    DataType.BYTE => 2,
+                    DataType.TWO_BYTE => 4,
+                    DataType.FOUR_BYTE => 8,
+                    _ => throw new Exception("impossible"),
+                };
+                var rawMemdata = MyCoreBot.ReadAbsolute(pointer, len);
+                var valueType = data.type switch
+                {
+                    DataType.BYTE => Core.ValueType.SHORT,
+                    DataType.TWO_BYTE => Core.ValueType.INT,
+                    DataType.FOUR_BYTE => Core.ValueType.LONG,
+                    _ => throw new Exception("impossible"),
+                };
+                var valueData = new ValueData(rawMemdata, valueType);
+                lvi.SubItems.Add(valueData.HumanValue.ToString());
+            }
+            return lvi;
+        }
+
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            SystemSounds.Hand.Play();
         }
 
         private void ConnectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -118,8 +149,7 @@ namespace USP.UI
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using var about = new AboutForm();
-            about.ShowDialog();
+            SystemSounds.Hand.Play();
         }
     }
 }

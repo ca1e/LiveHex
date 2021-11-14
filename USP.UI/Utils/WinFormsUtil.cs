@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace USP.UI
+namespace USP.UI.Utils
 {
     public static class WinFormsUtil
     {

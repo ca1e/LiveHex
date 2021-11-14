@@ -1,6 +1,6 @@
 ﻿using USP.Core;
 
-namespace USP.UI
+namespace USP.UI.Editor
 {
     class FakeEditor : IRAMEditor
     {

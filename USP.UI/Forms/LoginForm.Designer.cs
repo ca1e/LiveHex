@@ -44,7 +44,7 @@ namespace USP.UI
             // 
             // ipTextBox
             // 
-            this.ipTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ipTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ipTextBox.Location = new System.Drawing.Point(12, 12);
             this.ipTextBox.Name = "ipTextBox";
             this.ipTextBox.Size = new System.Drawing.Size(150, 26);
@@ -54,7 +54,7 @@ namespace USP.UI
             // CB_Protocol
             // 
             this.CB_Protocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_Protocol.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CB_Protocol.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.CB_Protocol.FormattingEnabled = true;
             this.CB_Protocol.Location = new System.Drawing.Point(12, 100);
             this.CB_Protocol.Name = "CB_Protocol";
@@ -63,7 +63,7 @@ namespace USP.UI
             // 
             // portTextBox
             // 
-            this.portTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.portTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.portTextBox.Location = new System.Drawing.Point(12, 44);
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(150, 26);
@@ -72,7 +72,7 @@ namespace USP.UI
             // 
             // BT_conn
             // 
-            this.BT_conn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BT_conn.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BT_conn.Location = new System.Drawing.Point(12, 147);
             this.BT_conn.Name = "BT_conn";
             this.BT_conn.Size = new System.Drawing.Size(150, 35);
@@ -84,7 +84,7 @@ namespace USP.UI
             // usbComboBox
             // 
             this.usbComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.usbComboBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.usbComboBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.usbComboBox.FormattingEnabled = true;
             this.usbComboBox.Location = new System.Drawing.Point(12, 12);
             this.usbComboBox.Name = "usbComboBox";
@@ -103,7 +103,7 @@ namespace USP.UI
             // 
             // BT_attach
             // 
-            this.BT_attach.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BT_attach.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BT_attach.Location = new System.Drawing.Point(3, 3);
             this.BT_attach.Name = "BT_attach";
             this.BT_attach.Size = new System.Drawing.Size(150, 32);
@@ -124,7 +124,7 @@ namespace USP.UI
             // BT_detach
             // 
             this.BT_detach.Enabled = false;
-            this.BT_detach.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.BT_detach.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.BT_detach.Location = new System.Drawing.Point(3, 50);
             this.BT_detach.Name = "BT_detach";
             this.BT_detach.Size = new System.Drawing.Size(150, 23);
@@ -147,7 +147,7 @@ namespace USP.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(385, 214);
+            this.ClientSize = new System.Drawing.Size(184, 214);
             this.Controls.Add(this.P_pids);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LB_pids);

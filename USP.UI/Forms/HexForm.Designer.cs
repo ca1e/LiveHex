@@ -39,7 +39,10 @@ namespace USP.UI
             this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.rawRB = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // hexOfTextBox
@@ -52,7 +55,7 @@ namespace USP.UI
             // 
             // writeButton
             // 
-            this.writeButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.writeButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.writeButton.Location = new System.Drawing.Point(362, 44);
             this.writeButton.Name = "writeButton";
             this.writeButton.Size = new System.Drawing.Size(92, 27);
@@ -63,7 +66,7 @@ namespace USP.UI
             // 
             // readButton
             // 
-            this.readButton.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.readButton.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.readButton.Location = new System.Drawing.Point(252, 44);
             this.readButton.Name = "readButton";
             this.readButton.Size = new System.Drawing.Size(95, 27);
@@ -152,11 +155,32 @@ namespace USP.UI
             this.radioButton1.Text = "2-bit";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.rawRB);
+            this.panel2.Location = new System.Drawing.Point(471, 43);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(200, 28);
+            this.panel2.TabIndex = 19;
+            // 
+            // rawRB
+            // 
+            this.rawRB.AutoSize = true;
+            this.rawRB.Checked = true;
+            this.rawRB.Location = new System.Drawing.Point(15, 6);
+            this.rawRB.Name = "rawRB";
+            this.rawRB.Size = new System.Drawing.Size(41, 16);
+            this.rawRB.TabIndex = 0;
+            this.rawRB.TabStop = true;
+            this.rawRB.Text = "Raw";
+            this.rawRB.UseVisualStyleBackColor = true;
+            // 
             // HexForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(683, 450);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.hexBox1);
             this.Controls.Add(this.hexOfTextBox);
@@ -169,6 +193,8 @@ namespace USP.UI
             this.Text = "HexEdit";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,5 +212,7 @@ namespace USP.UI
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton rawRB;
     }
 }

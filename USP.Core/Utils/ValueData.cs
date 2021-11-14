@@ -36,7 +36,7 @@ namespace USP.Core
 
     public enum ValueType
     {
-        BYTE = 0x1,
+        BIT = 0x1,
         SHORT = 0x2,
         INT = 0x4,
         LONG = 0x8,

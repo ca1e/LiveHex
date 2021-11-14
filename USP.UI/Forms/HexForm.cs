@@ -67,7 +67,7 @@ namespace USP.UI
 
         private void ReadButton_Click(object sender, EventArgs e)
         {
-            var provider = new RAMProvider{ Editor = MyCoreBot, ByteLength = Convert.ToInt32(hexOfTextBox.Text) };
+            var provider = new Provider.RAMProvider { Editor = MyCoreBot, ByteLength = Convert.ToInt32(hexOfTextBox.Text) };
             provider.Address = hexRltTextBox.Text;
 
             hexBox1.LineInfoOffset = (long)(provider.Addr - info.HeepBase);
