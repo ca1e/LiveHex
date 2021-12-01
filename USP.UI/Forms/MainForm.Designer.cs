@@ -50,6 +50,8 @@ namespace USP.UI
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Stas_main = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cMS_listview.SuspendLayout();
             this.MS_main.SuspendLayout();
             this.Stas_main.SuspendLayout();
             this.SuspendLayout();
@@ -67,18 +69,22 @@ namespace USP.UI
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
-            this.LV_view.ContextMenuStrip = this.cMS_listview;
             this.LV_view.FullRowSelect = true;
+            this.LV_view.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.LV_view.HideSelection = false;
             this.LV_view.LabelWrap = false;
             this.LV_view.Location = new System.Drawing.Point(0, 123);
+            this.LV_view.MultiSelect = false;
             this.LV_view.Name = "LV_view";
             this.LV_view.Size = new System.Drawing.Size(599, 236);
             this.LV_view.TabIndex = 0;
             this.LV_view.UseCompatibleStateImageBehavior = false;
             this.LV_view.View = System.Windows.Forms.View.Details;
+            this.LV_view.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.LV_view_ItemMouseHover);
             this.LV_view.DragDrop += new System.Windows.Forms.DragEventHandler(this.LV_view_DragDrop);
             this.LV_view.DragEnter += new System.Windows.Forms.DragEventHandler(this.LV_view_DragEnter);
+            this.LV_view.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LV_view_MouseClick);
+            this.LV_view.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LV_view_MouseDoubleClick);
             // 
             // columnHeader1
             // 
@@ -107,8 +113,10 @@ namespace USP.UI
             // 
             // cMS_listview
             // 
+            this.cMS_listview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem});
             this.cMS_listview.Name = "cMS_listview";
-            this.cMS_listview.Size = new System.Drawing.Size(61, 4);
+            this.cMS_listview.Size = new System.Drawing.Size(113, 26);
             // 
             // MS_main
             // 
@@ -220,6 +228,13 @@ namespace USP.UI
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(67, 17);
             this.toolStripStatusLabel1.Text = "test status";
             // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteToolStripMenuItem.Text = "delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -236,6 +251,7 @@ namespace USP.UI
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NSME LiveHex";
+            this.cMS_listview.ResumeLayout(false);
             this.MS_main.ResumeLayout(false);
             this.MS_main.PerformLayout();
             this.Stas_main.ResumeLayout(false);
@@ -267,5 +283,6 @@ namespace USP.UI
         private System.Windows.Forms.StatusStrip Stas_main;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ContextMenuStrip cMS_listview;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
     }
 }

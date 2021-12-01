@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Media;
 using System.Reflection;
@@ -59,6 +60,7 @@ namespace USP.UI
             if (info.HeepBase != 0)
             {
                 L_consoleInfo.Text += "-H1";
+                BT_cleanTable.BackColor = Color.Green;
             }
         }
 
@@ -102,6 +104,7 @@ namespace USP.UI
             lvi.SubItems.Add(data.Description);
             lvi.SubItems.Add(data.Address);
             lvi.SubItems.Add(data.type.ToString());
+            lvi.Tag = data;
             
             var pointer = MyCoreBot.GetPointer(data.Address);
             if (pointer == ulong.MaxValue)
@@ -150,6 +153,38 @@ namespace USP.UI
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SystemSounds.Hand.Play();
+        }
+
+        private void LV_view_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
+        {
+
+        }
+
+        private void LV_view_MouseClick(object sender, MouseEventArgs e)
+        {
+            var item = LV_view.GetItemAt(e.X, e.Y);
+            if (item != null && e.Button == MouseButtons.Right)
+            {
+                this.cMS_listview.Show(LV_view, e.X, e.Y);
+            }
+        }
+
+        private void LV_view_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var item = LV_view.GetItemAt(e.X, e.Y);
+
+            if (item != null)
+            {
+                var record = (ScriptRecord)item.Tag;
+                var form = new ScriptForm(MyCoreBot, record);
+                form.ShowDialog();
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = LV_view.SelectedItems[0];
+            LV_view.Items.Remove(item);
         }
     }
 }
