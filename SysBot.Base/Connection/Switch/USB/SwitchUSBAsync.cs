@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using static SysBot.Base.SwitchOffsetType;
 
 namespace SysBot.Base
@@ -28,6 +31,10 @@ namespace SysBot.Base
         public Task<byte[]> ReadBytesMainAsync(ulong offset, int length, CancellationToken token) => Task.Run(() => Read(offset, length, Main.GetReadMethod(false)), token);
         public Task<byte[]> ReadBytesAbsoluteAsync(ulong offset, int length, CancellationToken token) => Task.Run(() => Read(offset, length, Absolute.GetReadMethod(false)), token);
 
+        public Task<byte[]> ReadBytesMultiAsync(IReadOnlyDictionary<ulong, int> offsetSizes, CancellationToken token) => Task.Run(() => ReadMulti(offsetSizes, Heap.GetReadMultiMethod(false)), token);
+        public Task<byte[]> ReadBytesMainMultiAsync(IReadOnlyDictionary<ulong, int> offsetSizes, CancellationToken token) => Task.Run(() => ReadMulti(offsetSizes, Main.GetReadMultiMethod(false)), token);
+        public Task<byte[]> ReadBytesAbsoluteMultiAsync(IReadOnlyDictionary<ulong, int> offsetSizes, CancellationToken token) => Task.Run(() => ReadMulti(offsetSizes, Absolute.GetReadMultiMethod(false)), token);
+
         public Task WriteBytesAsync(byte[] data, uint offset, CancellationToken token) => Task.Run(() => Write(data, offset, Heap.GetWriteMethod(false)), token);
         public Task WriteBytesMainAsync(byte[] data, ulong offset, CancellationToken token) => Task.Run(() => Write(data, offset, Main.GetWriteMethod(false)), token);
         public Task WriteBytesAbsoluteAsync(byte[] data, ulong offset, CancellationToken token) => Task.Run(() => Write(data, offset, Absolute.GetWriteMethod(false)), token);
@@ -37,7 +44,7 @@ namespace SysBot.Base
             return Task.Run(() =>
             {
                 Send(SwitchCommand.GetMainNsoBase(false));
-                byte[] baseBytes = ReadResponse(8);
+                byte[] baseBytes = ReadBulkUSB();
                 return BitConverter.ToUInt64(baseBytes, 0);
             }, token);
         }
@@ -47,8 +54,19 @@ namespace SysBot.Base
             return Task.Run(() =>
             {
                 Send(SwitchCommand.GetHeapBase(false));
-                byte[] baseBytes = ReadResponse(8);
+                byte[] baseBytes = ReadBulkUSB();
                 return BitConverter.ToUInt64(baseBytes, 0);
+            }, token);
+        }
+
+        public Task<string> GetTitleID(CancellationToken token)
+        {
+            return Task.Run(() =>
+            {
+                Send(SwitchCommand.GetTitleID(false));
+                byte[] baseBytes = ReadBulkUSB();
+                return BitConverter.ToUInt64(baseBytes, 0).ToString("X16").Trim();
+
             }, token);
         }
 
@@ -57,13 +75,52 @@ namespace SysBot.Base
             return Task.Run(() =>
             {
                 Send(command);
-                return ReadResponse(length);
+                return ReadBulkUSB();
             }, token);
         }
 
         public Task SendRaw(byte[] command, CancellationToken token)
         {
             return Task.Run(() => Send(command), token);
+        }
+
+        public Task<byte[]> PointerPeek(int size, IEnumerable<long> jumps, CancellationToken token)
+        {
+            return Task.Run(() =>
+            {
+                Send(SwitchCommand.PointerPeek(jumps, size, false));
+                return ReadBulkUSB();
+            }, token);
+        }
+
+        public Task PointerPoke(byte[] data, IEnumerable<long> jumps, CancellationToken token)
+        {
+            return Task.Run(() =>
+            {
+                Send(SwitchCommand.PointerPoke(jumps, data, false));
+            }, token);
+        }
+        
+        public Task<ulong> PointerAll(IEnumerable<long> jumps, CancellationToken token)
+        {
+            return Task.Run(() =>
+            {
+                Send(SwitchCommand.PointerAll(jumps, false));
+                byte[] baseBytes = ReadBulkUSB();
+                return BitConverter.ToUInt64(baseBytes, 0);
+
+            }, token);
+        }
+
+        public Task<ulong> PointerRelative(IEnumerable<long> jumps, CancellationToken token)
+        {
+            return Task.Run(() =>
+            {
+                Send(SwitchCommand.PointerRelative(jumps, false));
+                byte[] baseBytes = ReadBulkUSB();
+                return BitConverter.ToUInt64(baseBytes, 0);
+
+            }, token);
         }
     }
 }

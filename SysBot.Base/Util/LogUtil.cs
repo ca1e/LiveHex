@@ -21,5 +21,10 @@ namespace SysBot.Base
         {
 
         }
+
+        public static void LogSafe(Exception exception, string identity)
+        {
+
+        }
     }
 }

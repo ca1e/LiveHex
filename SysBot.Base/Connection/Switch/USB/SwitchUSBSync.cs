@@ -26,21 +26,21 @@ namespace SysBot.Base
         public ulong GetMainNsoBase()
         {
             Send(SwitchCommand.GetMainNsoBase(false));
-            byte[] baseBytes = ReadResponse(8);
+            byte[] baseBytes = ReadBulkUSB();
             return BitConverter.ToUInt64(baseBytes, 0);
         }
 
         public ulong GetHeapBase()
         {
             Send(SwitchCommand.GetHeapBase(false));
-            byte[] baseBytes = ReadResponse(8);
+            byte[] baseBytes = ReadBulkUSB();
             return BitConverter.ToUInt64(baseBytes, 0);
         }
 
         public ulong GetTitleID()
         {
             Send(SwitchCommand.GetTitleID(false));
-            byte[] baseBytes = ReadResponse(8);
+            byte[] baseBytes = ReadBulkUSB();
             return BitConverter.ToUInt64(baseBytes, 0);
         }
 
