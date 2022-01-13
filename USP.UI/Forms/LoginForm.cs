@@ -11,9 +11,13 @@ namespace USP.UI
     {
         private readonly Settings Settings = Settings.Default;
 
+        private readonly int originw;
+
         public LoginForm()
         {
             InitializeComponent();
+
+            originw = this.Width;
 
             LoadControls();
 
@@ -57,8 +61,8 @@ namespace USP.UI
                 ipTextBox.Visible = CB_Protocol.SelectedIndex != 1;
                 this.Width = CB_Protocol.SelectedIndex switch
                 {
-                    2 => 400,
-                    _ => 200,
+                    2 => originw * 2,
+                    _ => originw,
                 };
                 portTextBox.Text = CB_Protocol.SelectedIndex switch
                 {
