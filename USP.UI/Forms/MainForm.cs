@@ -238,8 +238,17 @@ namespace USP.UI
 
         private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = LV_view.SelectedItems[0];
-            LV_view.Items.Remove(item);
+            if (LV_view.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            var idx = LV_view.Items.IndexOf(LV_view.SelectedItems[0]);
+            if (idx < 0 && idx >= scripts.Count)
+            {
+                return;
+            }
+            scripts.RemoveAt(idx);
+            LV_view.Items.RemoveAt(idx);
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
