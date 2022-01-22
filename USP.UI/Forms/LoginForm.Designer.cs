@@ -44,38 +44,42 @@ namespace USP.UI
             // 
             // ipTextBox
             // 
-            this.ipTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ipTextBox.Location = new System.Drawing.Point(12, 12);
+            this.ipTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ipTextBox.Location = new System.Drawing.Point(15, 30);
+            this.ipTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ipTextBox.Name = "ipTextBox";
-            this.ipTextBox.Size = new System.Drawing.Size(150, 26);
+            this.ipTextBox.Size = new System.Drawing.Size(174, 26);
             this.ipTextBox.TabIndex = 8;
             this.ipTextBox.Text = "999.999.999.999";
             // 
             // CB_Protocol
             // 
             this.CB_Protocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_Protocol.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CB_Protocol.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CB_Protocol.FormattingEnabled = true;
-            this.CB_Protocol.Location = new System.Drawing.Point(12, 100);
+            this.CB_Protocol.Location = new System.Drawing.Point(14, 132);
+            this.CB_Protocol.Margin = new System.Windows.Forms.Padding(4);
             this.CB_Protocol.Name = "CB_Protocol";
-            this.CB_Protocol.Size = new System.Drawing.Size(150, 24);
+            this.CB_Protocol.Size = new System.Drawing.Size(174, 24);
             this.CB_Protocol.TabIndex = 7;
             // 
             // portTextBox
             // 
-            this.portTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.portTextBox.Location = new System.Drawing.Point(12, 44);
+            this.portTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.portTextBox.Location = new System.Drawing.Point(15, 69);
+            this.portTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.portTextBox.Name = "portTextBox";
-            this.portTextBox.Size = new System.Drawing.Size(150, 26);
+            this.portTextBox.Size = new System.Drawing.Size(174, 26);
             this.portTextBox.TabIndex = 6;
             this.portTextBox.Text = "6000";
             // 
             // BT_conn
             // 
-            this.BT_conn.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BT_conn.Location = new System.Drawing.Point(12, 147);
+            this.BT_conn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BT_conn.Location = new System.Drawing.Point(13, 212);
+            this.BT_conn.Margin = new System.Windows.Forms.Padding(4);
             this.BT_conn.Name = "BT_conn";
-            this.BT_conn.Size = new System.Drawing.Size(150, 35);
+            this.BT_conn.Size = new System.Drawing.Size(175, 67);
             this.BT_conn.TabIndex = 5;
             this.BT_conn.Text = "Connect";
             this.BT_conn.UseVisualStyleBackColor = true;
@@ -84,29 +88,32 @@ namespace USP.UI
             // usbComboBox
             // 
             this.usbComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.usbComboBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.usbComboBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.usbComboBox.FormattingEnabled = true;
-            this.usbComboBox.Location = new System.Drawing.Point(12, 12);
+            this.usbComboBox.Location = new System.Drawing.Point(15, 30);
+            this.usbComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.usbComboBox.Name = "usbComboBox";
-            this.usbComboBox.Size = new System.Drawing.Size(150, 24);
+            this.usbComboBox.Size = new System.Drawing.Size(174, 24);
             this.usbComboBox.TabIndex = 9;
             this.usbComboBox.Visible = false;
             // 
             // LB_pids
             // 
             this.LB_pids.FormattingEnabled = true;
-            this.LB_pids.ItemHeight = 12;
-            this.LB_pids.Location = new System.Drawing.Point(213, 12);
+            this.LB_pids.ItemHeight = 17;
+            this.LB_pids.Location = new System.Drawing.Point(248, 17);
+            this.LB_pids.Margin = new System.Windows.Forms.Padding(4);
             this.LB_pids.Name = "LB_pids";
-            this.LB_pids.Size = new System.Drawing.Size(150, 100);
+            this.LB_pids.Size = new System.Drawing.Size(174, 140);
             this.LB_pids.TabIndex = 10;
             // 
             // BT_attach
             // 
-            this.BT_attach.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BT_attach.Location = new System.Drawing.Point(3, 3);
+            this.BT_attach.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BT_attach.Location = new System.Drawing.Point(4, 4);
+            this.BT_attach.Margin = new System.Windows.Forms.Padding(4);
             this.BT_attach.Name = "BT_attach";
-            this.BT_attach.Size = new System.Drawing.Size(150, 32);
+            this.BT_attach.Size = new System.Drawing.Size(175, 45);
             this.BT_attach.TabIndex = 11;
             this.BT_attach.Text = "Attach";
             this.BT_attach.UseVisualStyleBackColor = true;
@@ -115,19 +122,21 @@ namespace USP.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(211, 115);
+            this.label1.Location = new System.Drawing.Point(246, 163);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
+            this.label1.Size = new System.Drawing.Size(31, 17);
             this.label1.TabIndex = 12;
             this.label1.Text = "[tid]";
             // 
             // BT_detach
             // 
             this.BT_detach.Enabled = false;
-            this.BT_detach.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.BT_detach.Location = new System.Drawing.Point(3, 50);
+            this.BT_detach.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BT_detach.Location = new System.Drawing.Point(4, 59);
+            this.BT_detach.Margin = new System.Windows.Forms.Padding(4);
             this.BT_detach.Name = "BT_detach";
-            this.BT_detach.Size = new System.Drawing.Size(150, 23);
+            this.BT_detach.Size = new System.Drawing.Size(175, 33);
             this.BT_detach.TabIndex = 13;
             this.BT_detach.Text = "Detach";
             this.BT_detach.UseVisualStyleBackColor = true;
@@ -138,16 +147,17 @@ namespace USP.UI
             this.P_pids.Controls.Add(this.BT_attach);
             this.P_pids.Controls.Add(this.BT_detach);
             this.P_pids.Enabled = false;
-            this.P_pids.Location = new System.Drawing.Point(213, 132);
+            this.P_pids.Location = new System.Drawing.Point(248, 187);
+            this.P_pids.Margin = new System.Windows.Forms.Padding(4);
             this.P_pids.Name = "P_pids";
-            this.P_pids.Size = new System.Drawing.Size(171, 82);
+            this.P_pids.Size = new System.Drawing.Size(187, 103);
             this.P_pids.TabIndex = 14;
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 214);
+            this.ClientSize = new System.Drawing.Size(212, 292);
             this.Controls.Add(this.P_pids);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.LB_pids);
@@ -157,7 +167,7 @@ namespace USP.UI
             this.Controls.Add(this.BT_conn);
             this.Controls.Add(this.usbComboBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LoginForm";

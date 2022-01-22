@@ -29,7 +29,7 @@ namespace USP.UI
         private void BindingData()
         {
             this.typeCB.BindToEnumName(typeof(DataType));
-            this.typeCB.SetSelectedItemToEnum(ScriptData.type);
+            this.typeCB.SetSelectedItemToEnum(ScriptData.DType);
             this.pointerBox.DataBindings.Add("Text", ScriptData, "Address");
             this.hexacimalCheckBox.DataBindings.Add("Checked", ScriptData, "Hexadecimal");
 
@@ -49,14 +49,14 @@ namespace USP.UI
 
         private void readButton_Click(object sender, EventArgs e)
         {
-            var len = ScriptData.type switch
+            var len = ScriptData.DType switch
             {
                 DataType.BYTE => 2,
                 DataType.TWO_BYTE => 4,
                 DataType.FOUR_BYTE => 8,
                 _ => throw new Exception("impossible"),
             };
-            var valueType = ScriptData.type switch
+            var valueType = ScriptData.DType switch
             {
                 DataType.BYTE => Core.ValueType.SHORT,
                 DataType.TWO_BYTE => Core.ValueType.INT,
@@ -83,7 +83,7 @@ namespace USP.UI
 
         private void writeButton_Click(object sender, EventArgs e)
         {
-            var valueType = ScriptData.type switch
+            var valueType = ScriptData.DType switch
             {
                 DataType.BYTE => Core.ValueType.SHORT,
                 DataType.TWO_BYTE => Core.ValueType.INT,

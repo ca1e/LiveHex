@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Media;
 using System.Reflection;
+using System.Text.Json;
 using System.Windows.Forms;
 using USP.Core;
+using USP.UI.Exts;
 using USP.UI.Script;
 
 namespace USP.UI
@@ -14,16 +17,32 @@ namespace USP.UI
     {
         private static readonly Version CurrentProgramVersion = Assembly.GetExecutingAssembly().GetName().Version!;
 
+        private static readonly List<ScriptRecord> scripts = new();
+
+        private string ScriptPath = "";
+
         public MainForm()
         {
-            var args = Environment.GetCommandLineArgs();
+            _ = Environment.GetCommandLineArgs();
 
             InitializeComponent();
 
             FormLoadCheck();
             FormLoadPlugins();
+
+            InitControls();
         }
 
+        private void InitControls()
+        {
+            timer1.Enabled = false;
+            CKB_Update.CheckedChanged += (_, __) =>
+            {
+                timer1.Enabled = CKB_Update.Checked;
+            };
+            saveFileDialog1.InitialDirectory = Application.StartupPath;
+            saveFileDialog1.DefaultExt = ".json";
+        }
 
         #region Path Variables
 
@@ -45,7 +64,7 @@ namespace USP.UI
             L_consoleInfo.Text = "No Console Connected";
         }
 
-        private void FormLoadPlugins()
+        private static void FormLoadPlugins()
         {
 #if !MERGED // merged should load dlls from within too, folder is no longer required
             if (!Directory.Exists(PluginPath))
@@ -61,6 +80,7 @@ namespace USP.UI
             {
                 L_consoleInfo.Text += "-H1";
                 BT_cleanTable.BackColor = Color.Green;
+                UpdateListView(MyCoreBot);
             }
         }
 
@@ -74,7 +94,18 @@ namespace USP.UI
 
         private void LV_view_DragDrop(object sender, DragEventArgs e)
         {
+            try
+            {
+                var path = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                if (Path.GetExtension(path[0]) != ".json") return;
+                ScriptPath = path[0];
 
+                LoadScriptFile(File.ReadAllText(ScriptPath));
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"!=!{ex.Message}", "error");
+            }
         }
 
         private void BT_ramEdit_Click(object sender, EventArgs e)
@@ -85,58 +116,79 @@ namespace USP.UI
 
         private void BT_addRecord_Click(object sender, EventArgs e)
         {
-            LV_view.BeginUpdate();
-
             var form = new AddFunctionForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                var data = form.ScriptResult;
-                var li = GenListItem(data);
-                LV_view.Items.Add(li);
+                scripts.Add(form.ScriptResult);
             }
 
+            UpdateListView(MyCoreBot);
+        }
+
+        #region Module Functions
+        private void LoadScriptFile(string _script)
+        {
+            scripts.Clear();
+            scripts.AddRange(ParseRecord(_script));
+            UpdateListView(MyCoreBot);
+        }
+
+        private static void SaveScriptFile(string path)
+        {
+            var jsonSerializerOptions = new JsonSerializerOptions();
+            jsonSerializerOptions.Converters.Add(new EmptyStringConverter());
+            File.WriteAllText(path, JsonSerializer.Serialize(scripts, jsonSerializerOptions));
+        }
+
+        private void UpdateListView(IRAMEditor bot)
+        {
+            LV_view.BeginUpdate();
+            LV_view.Items.Clear();
+            LV_view.Items.AddRange(scripts.Select(x => GenListItem(x, bot)).ToArray());
             LV_view.EndUpdate();
         }
 
-        private ListViewItem GenListItem(ScriptRecord data)
+        private static IEnumerable<ScriptRecord> ParseRecord(string json)
         {
-            ListViewItem lvi = new();
-            lvi.SubItems.Add(data.Description);
-            lvi.SubItems.Add(data.Address);
-            lvi.SubItems.Add(data.type.ToString());
-            lvi.Tag = data;
-            
-            var pointer = MyCoreBot.GetPointer(data.Address);
-            if (pointer == ulong.MaxValue)
+            var jsonSerializerOptions = new JsonSerializerOptions();
+            jsonSerializerOptions.Converters.Add(new EmptyStringConverter());
+            var sf = JsonSerializer.Deserialize<List<ScriptRecord>>(json, jsonSerializerOptions);
+            if (sf != null)
             {
-                lvi.SubItems.Add("??");
-            }
-            else
-            {
-                var len = data.type switch
+                foreach (var f in sf)
                 {
-                    DataType.BYTE => 2,
-                    DataType.TWO_BYTE => 4,
-                    DataType.FOUR_BYTE => 8,
-                    _ => throw new Exception("impossible"),
-                };
-                var rawMemdata = MyCoreBot.ReadAbsolute(pointer, len);
-                var valueType = data.type switch
-                {
-                    DataType.BYTE => Core.ValueType.SHORT,
-                    DataType.TWO_BYTE => Core.ValueType.INT,
-                    DataType.FOUR_BYTE => Core.ValueType.LONG,
-                    _ => throw new Exception("impossible"),
-                };
-                var valueData = new ValueData(rawMemdata, valueType);
-                lvi.SubItems.Add(valueData.HumanValue.ToString());
+                    yield return f;
+                }
             }
-            return lvi;
         }
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        private static ListViewItem GenListItem(ScriptRecord data, IRAMEditor editor)
+        {
+            var lvi = new ListViewItem{ Tag = data };
+            lvi.SubItems.Add(data.Description);
+            lvi.SubItems.Add(data.Address);
+            lvi.SubItems.Add(data.DType.ToString());
+            lvi.SubItems.Add(data.UpdateData(editor));
+            return lvi;
+        }
+        #endregion
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SystemSounds.Hand.Play();
+            toolStripStatusLabel1.Text = "hahah!";
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (scripts.Count == 0)
+            {
+                toolStripStatusLabel1.Text = "no scripts to save";
+                return;
+            }
+            if (ScriptPath != "") saveFileDialog1.FileName = ScriptPath;
+            if (saveFileDialog1.ShowDialog()== DialogResult.OK)
+                SaveScriptFile(saveFileDialog1.FileName);
         }
 
         private void ConnectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -144,20 +196,16 @@ namespace USP.UI
             using var form = new LoginForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
+                SystemSounds.Hand.Play();
                 MyCoreBot = form.Editor;
                 var info = MyCoreBot.GetInfo();
                 InitConnectedConsole(info);
             }
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SystemSounds.Hand.Play();
-        }
-
-        private void LV_view_ItemMouseHover(object sender, ListViewItemMouseHoverEventArgs e)
-        {
-
         }
 
         private void LV_view_MouseClick(object sender, MouseEventArgs e)
@@ -181,10 +229,22 @@ namespace USP.UI
             }
         }
 
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = LV_view.SelectedItems[0];
+            var data = item.SubItems[4].Text;
+            Clipboard.SetDataObject(data);
+        }
+
+        private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var item = LV_view.SelectedItems[0];
             LV_view.Items.Remove(item);
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            UpdateListView(MyCoreBot);
         }
     }
 }

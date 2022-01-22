@@ -24,7 +24,7 @@ namespace USP.UI
             this.typeCB.BindToEnumName(typeof(DataType));
             this.typeCB.SelectedIndexChanged += (_, __) =>
             {
-                ScriptResult.type = this.typeCB.GetSelectedItemToEnum<DataType>();
+                ScriptResult.DType = this.typeCB.GetSelectedItemToEnum<DataType>();
             };
             this.textBox1.DataBindings.Add("Text", ScriptResult, "Address");
             this.textBox2.DataBindings.Add("Text", ScriptResult, "Description");

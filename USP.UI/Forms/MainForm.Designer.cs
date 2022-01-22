@@ -31,15 +31,18 @@ namespace USP.UI
         {
             this.components = new System.ComponentModel.Container();
             this.LV_view = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.cMS_listview = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_main = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,10 +50,11 @@ namespace USP.UI
             this.L_consoleInfo = new System.Windows.Forms.Label();
             this.BT_cleanTable = new System.Windows.Forms.Button();
             this.BT_addRecord = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Stas_main = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.CKB_Update = new System.Windows.Forms.CheckBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.cMS_listview.SuspendLayout();
             this.MS_main.SuspendLayout();
             this.Stas_main.SuspendLayout();
@@ -71,16 +75,15 @@ namespace USP.UI
             this.columnHeader5});
             this.LV_view.FullRowSelect = true;
             this.LV_view.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.LV_view.HideSelection = false;
             this.LV_view.LabelWrap = false;
-            this.LV_view.Location = new System.Drawing.Point(0, 123);
+            this.LV_view.Location = new System.Drawing.Point(0, 174);
+            this.LV_view.Margin = new System.Windows.Forms.Padding(4);
             this.LV_view.MultiSelect = false;
             this.LV_view.Name = "LV_view";
-            this.LV_view.Size = new System.Drawing.Size(599, 236);
+            this.LV_view.Size = new System.Drawing.Size(624, 171);
             this.LV_view.TabIndex = 0;
             this.LV_view.UseCompatibleStateImageBehavior = false;
             this.LV_view.View = System.Windows.Forms.View.Details;
-            this.LV_view.ItemMouseHover += new System.Windows.Forms.ListViewItemMouseHoverEventHandler(this.LV_view_ItemMouseHover);
             this.LV_view.DragDrop += new System.Windows.Forms.DragEventHandler(this.LV_view_DragDrop);
             this.LV_view.DragEnter += new System.Windows.Forms.DragEventHandler(this.LV_view_DragEnter);
             this.LV_view.MouseClick += new System.Windows.Forms.MouseEventHandler(this.LV_view_MouseClick);
@@ -94,29 +97,44 @@ namespace USP.UI
             // columnHeader2
             // 
             this.columnHeader2.Text = "Description";
-            this.columnHeader2.Width = 125;
+            this.columnHeader2.Width = 150;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Address";
-            this.columnHeader3.Width = 125;
+            this.columnHeader3.Width = 150;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Type";
-            this.columnHeader4.Width = 85;
+            this.columnHeader4.Width = 90;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Value";
-            this.columnHeader5.Width = 125;
+            this.columnHeader5.Width = 150;
             // 
             // cMS_listview
             // 
             this.cMS_listview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cMS_listview.Name = "cMS_listview";
-            this.cMS_listview.Size = new System.Drawing.Size(113, 26);
+            this.cMS_listview.Size = new System.Drawing.Size(113, 48);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.copyToolStripMenuItem.Text = "copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Text = "delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
             // MS_main
             // 
@@ -125,7 +143,8 @@ namespace USP.UI
             this.helpToolStripMenuItem});
             this.MS_main.Location = new System.Drawing.Point(0, 0);
             this.MS_main.Name = "MS_main";
-            this.MS_main.Size = new System.Drawing.Size(599, 25);
+            this.MS_main.Padding = new System.Windows.Forms.Padding(7, 3, 0, 3);
+            this.MS_main.Size = new System.Drawing.Size(624, 27);
             this.MS_main.TabIndex = 20;
             this.MS_main.Text = "menuStrip1";
             // 
@@ -133,6 +152,7 @@ namespace USP.UI
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
             this.connectToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
@@ -143,7 +163,14 @@ namespace USP.UI
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // connectToolStripMenuItem
             // 
@@ -165,13 +192,14 @@ namespace USP.UI
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // BT_ramEdit
             // 
-            this.BT_ramEdit.Location = new System.Drawing.Point(12, 85);
+            this.BT_ramEdit.Location = new System.Drawing.Point(14, 120);
+            this.BT_ramEdit.Margin = new System.Windows.Forms.Padding(4);
             this.BT_ramEdit.Name = "BT_ramEdit";
-            this.BT_ramEdit.Size = new System.Drawing.Size(91, 32);
+            this.BT_ramEdit.Size = new System.Drawing.Size(106, 45);
             this.BT_ramEdit.TabIndex = 21;
             this.BT_ramEdit.Text = " RAM";
             this.BT_ramEdit.UseVisualStyleBackColor = true;
@@ -181,9 +209,10 @@ namespace USP.UI
             // 
             this.L_consoleInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.L_consoleInfo.Location = new System.Drawing.Point(135, 24);
+            this.L_consoleInfo.Location = new System.Drawing.Point(158, 34);
+            this.L_consoleInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.L_consoleInfo.Name = "L_consoleInfo";
-            this.L_consoleInfo.Size = new System.Drawing.Size(464, 19);
+            this.L_consoleInfo.Size = new System.Drawing.Size(467, 27);
             this.L_consoleInfo.TabIndex = 22;
             this.L_consoleInfo.Text = "No Console Connected";
             this.L_consoleInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -191,34 +220,33 @@ namespace USP.UI
             // BT_cleanTable
             // 
             this.BT_cleanTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BT_cleanTable.Location = new System.Drawing.Point(279, 85);
+            this.BT_cleanTable.Location = new System.Drawing.Point(289, 120);
+            this.BT_cleanTable.Margin = new System.Windows.Forms.Padding(4);
             this.BT_cleanTable.Name = "BT_cleanTable";
-            this.BT_cleanTable.Size = new System.Drawing.Size(37, 32);
+            this.BT_cleanTable.Size = new System.Drawing.Size(43, 45);
             this.BT_cleanTable.TabIndex = 23;
             this.BT_cleanTable.UseVisualStyleBackColor = true;
             // 
             // BT_addRecord
             // 
             this.BT_addRecord.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BT_addRecord.Location = new System.Drawing.Point(496, 85);
+            this.BT_addRecord.Location = new System.Drawing.Point(504, 120);
+            this.BT_addRecord.Margin = new System.Windows.Forms.Padding(4);
             this.BT_addRecord.Name = "BT_addRecord";
-            this.BT_addRecord.Size = new System.Drawing.Size(91, 32);
+            this.BT_addRecord.Size = new System.Drawing.Size(106, 45);
             this.BT_addRecord.TabIndex = 24;
             this.BT_addRecord.Text = "Add";
             this.BT_addRecord.UseVisualStyleBackColor = true;
             this.BT_addRecord.Click += new System.EventHandler(this.BT_addRecord_Click);
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // Stas_main
             // 
             this.Stas_main.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.Stas_main.Location = new System.Drawing.Point(0, 359);
+            this.Stas_main.Location = new System.Drawing.Point(0, 349);
             this.Stas_main.Name = "Stas_main";
-            this.Stas_main.Size = new System.Drawing.Size(599, 22);
+            this.Stas_main.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
+            this.Stas_main.Size = new System.Drawing.Size(624, 22);
             this.Stas_main.TabIndex = 25;
             this.Stas_main.Text = "statusStrip1";
             // 
@@ -228,18 +256,27 @@ namespace USP.UI
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(67, 17);
             this.toolStripStatusLabel1.Text = "test status";
             // 
-            // deleteToolStripMenuItem
+            // timer1
             // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteToolStripMenuItem.Text = "delete";
-            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // CKB_Update
+            // 
+            this.CKB_Update.AutoSize = true;
+            this.CKB_Update.Location = new System.Drawing.Point(339, 144);
+            this.CKB_Update.Name = "CKB_Update";
+            this.CKB_Update.Size = new System.Drawing.Size(68, 21);
+            this.CKB_Update.TabIndex = 26;
+            this.CKB_Update.Text = "update";
+            this.CKB_Update.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 381);
+            this.ClientSize = new System.Drawing.Size(624, 371);
+            this.Controls.Add(this.CKB_Update);
             this.Controls.Add(this.Stas_main);
             this.Controls.Add(this.BT_addRecord);
             this.Controls.Add(this.BT_cleanTable);
@@ -247,10 +284,11 @@ namespace USP.UI
             this.Controls.Add(this.BT_ramEdit);
             this.Controls.Add(this.MS_main);
             this.Controls.Add(this.LV_view);
-            this.MinimumSize = new System.Drawing.Size(615, 420);
+            this.Margin = new System.Windows.Forms.Padding(4);
+            this.MinimumSize = new System.Drawing.Size(640, 410);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NSME LiveHex";
+            this.Text = " ";
             this.cMS_listview.ResumeLayout(false);
             this.MS_main.ResumeLayout(false);
             this.MS_main.PerformLayout();
@@ -279,10 +317,14 @@ namespace USP.UI
         private System.Windows.Forms.Button BT_cleanTable;
         private System.Windows.Forms.Button BT_addRecord;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.StatusStrip Stas_main;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ContextMenuStrip cMS_listview;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.CheckBox CKB_Update;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
