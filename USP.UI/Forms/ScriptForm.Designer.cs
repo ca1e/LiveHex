@@ -63,10 +63,10 @@
             // 
             this.pointerBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pointerBox.Enabled = false;
             this.pointerBox.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.pointerBox.Location = new System.Drawing.Point(31, 12);
             this.pointerBox.Name = "pointerBox";
+            this.pointerBox.ReadOnly = true;
             this.pointerBox.Size = new System.Drawing.Size(324, 23);
             this.pointerBox.TabIndex = 9;
             // 
