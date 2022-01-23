@@ -45,6 +45,16 @@ namespace USP.Core
             Connection.Detach();
         }
 
+        public void ResumeProcess()
+        {
+            Connection.Resume();
+        }
+
+        public void PauseProcess()
+        {
+            Connection.Pause();
+        }
+
         public ProcessInfo GetInfo()
         {
             return new ProcessInfo

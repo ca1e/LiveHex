@@ -21,6 +21,8 @@ namespace Noexes.Base
 
         void INoexsConnectionSync.Resume() => Resume();
 
+        void INoexsConnectionSync.Pause() => Pause();
+
         void INoexsConnectionSync.Detach() => Detach();
 
         private ulong Main_ = ulong.MinValue;

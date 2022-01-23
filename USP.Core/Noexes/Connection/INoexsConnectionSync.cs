@@ -10,7 +10,9 @@ namespace Noexes.Base
         void Detach();
 
         void Resume();
-        
+
+        void Pause();
+
         IEnumerable<ulong> GetPids();
 
         ulong GetTitleIdFromPid(ulong pid);
