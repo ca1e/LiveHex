@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
 using USP.Core;
 using USP.Plugins;
 
@@ -20,6 +20,11 @@ namespace USP.UI.Script
             }
         }
 
+        public static List<string> GetDefaultTypes()
+        {
+            return new List<string> { "BYTE", "TWO_BYTE", "FOUR_BYTE", "EIGHT_BYTE", "TIDSID" };
+        }
+
         private static IDataType GetDataType(string t)
         {
             return t switch
@@ -29,21 +34,28 @@ namespace USP.UI.Script
                 "FOUR_BYTE" => new ByteData(4),
                 "EIGHT_BYTE" => new ByteData(8),
                 "TIDSID" => new TidSid(),
-                _ => throw new System.Exception("not implement"),
+                _ => throw new System.NotImplementedException(),
             };
         }
-
-        public int DataLength => _DType.Length;
 
         private IDataType _DType = new ByteData(1); // default
         public bool Hexadecimal { get; set; } = false;
 
-        public string ParseData(byte[] raw)=> _DType.ParseData(raw, Hexadecimal);
-        public byte[] GetData(string val) => _DType.GetData(val);
-
-        public Form LoadForm(IRAMEditor bot)
+        public DataUserControl ShowControl(byte[] data)
         {
-           return new ScriptForm(bot, this);
+            var form = _DType.ShowControl();
+            form.Data = data;
+            return form;
+        }
+
+        public byte[] GetData(IRAMEditor editor)
+        {
+            var pointer = editor.GetPointer(Address);
+            if (pointer == ulong.MaxValue)
+            {
+                return System.Array.Empty<byte>();
+            }
+            return editor.ReadAbsolute(pointer, _DType.Length);
         }
 
         public string UpdateData(IRAMEditor editor)

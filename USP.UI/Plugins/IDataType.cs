@@ -4,8 +4,7 @@
     {
         public int Length { get; }
         public string ParseData(byte[] raw, bool isHex);
-        public byte[] GetData(string val);
-
+        public DataUserControl ShowControl();
         public string ToString();
     }
 }

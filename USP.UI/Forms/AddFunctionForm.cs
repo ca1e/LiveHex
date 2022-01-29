@@ -20,7 +20,7 @@ namespace USP.UI
 
         private void BindingData()
         {
-            this.typeCB.DataSource = ByteData.GetDefaultTypes();
+            this.typeCB.DataSource = ScriptRecord.GetDefaultTypes();
             this.typeCB.SelectedIndexChanged += (_, __) =>
             {
                 ScriptResult.DataType = (this.typeCB.SelectedItem as string)?? "BYTE";

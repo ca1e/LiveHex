@@ -55,6 +55,7 @@ namespace USP.UI
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.CKB_Update = new System.Windows.Forms.CheckBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cMS_listview.SuspendLayout();
             this.MS_main.SuspendLayout();
             this.Stas_main.SuspendLayout();
@@ -117,22 +118,23 @@ namespace USP.UI
             // cMS_listview
             // 
             this.cMS_listview.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateToolStripMenuItem,
             this.copyToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cMS_listview.Name = "cMS_listview";
-            this.cMS_listview.Size = new System.Drawing.Size(113, 48);
+            this.cMS_listview.Size = new System.Drawing.Size(181, 92);
             // 
             // copyToolStripMenuItem
             // 
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyToolStripMenuItem.Text = "copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteToolStripMenuItem.Text = "delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
             // 
@@ -272,6 +274,13 @@ namespace USP.UI
             this.CKB_Update.Text = "update";
             this.CKB_Update.UseVisualStyleBackColor = true;
             // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateToolStripMenuItem.Text = "update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.UpdateToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -327,5 +336,6 @@ namespace USP.UI
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
     }
 }

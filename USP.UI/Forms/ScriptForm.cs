@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using USP.Core;
+using USP.Plugins;
 using USP.UI.Script;
 
 namespace USP.UI
@@ -10,7 +9,8 @@ namespace USP.UI
     {
         private readonly IRAMEditor MyCoreBot;
         private readonly ScriptRecord ScriptData;
-        private ulong CurAddr;
+        private readonly ulong CurAddr;
+        private DataUserControl dc;
 
         public ScriptForm(IRAMEditor b, ScriptRecord record)
         {
@@ -19,41 +19,47 @@ namespace USP.UI
 
             InitializeComponent();
 
-            BindingData();
-            InitTitle();
-        }
-
-        private void BindingData()
-        {
-            this.typeCB.DataSource = new List<string>();
-            this.typeCB.SelectedIndex = -1;
+            // data binding
+            this.typeCB.Text = record.DataType;
             this.pointerBox.DataBindings.Add("Text", ScriptData, "Address");
-            this.hexacimalCheckBox.DataBindings.Add("Checked", ScriptData, "Hexadecimal");
 
-            this.hexacimalCheckBox.CheckedChanged += (_, _) =>
-            {
-                // TODO
-            };
-        }
-
-        private void InitTitle()
-        {
+            // init title
             Text = $"- {ScriptData.Description} -";
 
             CurAddr = MyCoreBot.GetPointer(ScriptData.Address);
             AddrLabel.Text = $"Addr: {CurAddr:X8}";
         }
 
-        private void ReadButton_Click(object sender, EventArgs e)
+        private void InitControls()
         {
-            var bytes = MyCoreBot.ReadAbsolute(CurAddr, ScriptData.DataLength);
-            resultBox.Text = ScriptData.ParseData(bytes);
+            var bytes = ScriptData.GetData(MyCoreBot);
+            this.DataPanel.Controls.Clear();
+            try
+            {
+                dc = ScriptData.ShowControl(bytes);
+                this.DataPanel.Controls.Add(dc);
+            }
+            catch (System.NotImplementedException)
+            {
+                MessageBox.Show("No any view to show.");
+                Close();
+            }
         }
 
-        private void WriteButton_Click(object sender, EventArgs e)
+        private void ScriptForm_Load(object sender, System.EventArgs e)
         {
-            var rawBytes = ScriptData.GetData(resultBox.Text);
-            MyCoreBot.WriteAbsolute(rawBytes, CurAddr);
+            InitControls();
+        }
+
+        private void readButton_Click(object sender, System.EventArgs e)
+        {
+            var bytes = ScriptData.GetData(MyCoreBot);
+            dc.Data = bytes;
+        }
+
+        private void writeButton_Click(object sender, System.EventArgs e)
+        {
+            MyCoreBot.WriteAbsolute(dc.Data, CurAddr);
         }
     }
 }

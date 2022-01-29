@@ -224,9 +224,24 @@ namespace USP.UI
             if (item != null)
             {
                 var record = (ScriptRecord)item.Tag;
-                var form = record.LoadForm(MyCoreBot);
+                var form = new ScriptForm(MyCoreBot, record);
                 form.ShowDialog();
             }
+        }
+
+        private void UpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (LV_view.SelectedItems.Count <= 0)
+            {
+                return;
+            }
+            var idx = LV_view.Items.IndexOf(LV_view.SelectedItems[0]);
+            if (idx < 0 && idx >= scripts.Count)
+            {
+                return;
+            }
+            var sc = scripts[idx];
+            sc.UpdateData(MyCoreBot);
         }
 
         private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
