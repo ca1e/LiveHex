@@ -1,6 +1,7 @@
 ﻿using Be.Windows.Forms;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using USP.Core;
 
@@ -79,6 +80,22 @@ namespace USP.UI
             hexBox1.ByteProvider?.ApplyChanges();
 
             System.Media.SystemSounds.Asterisk.Play();
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            if(saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                using var stream = new MemoryStream();
+
+                for(var i = 0; i < hexBox1.ByteProvider?.Length; i++)
+                {
+                    stream.WriteByte(hexBox1.ByteProvider.ReadByte(i));
+                }
+
+                var bytes = stream.ToArray();
+                File.WriteAllBytes(saveFileDialog1.FileName, bytes);
+            }
         }
 
         private void CleanUpHexBox(HexBox b)

@@ -263,6 +263,7 @@ namespace USP.UI
             // 
             // CKB_Update
             // 
+            this.CKB_Update.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.CKB_Update.AutoSize = true;
             this.CKB_Update.Location = new System.Drawing.Point(339, 144);
             this.CKB_Update.Name = "CKB_Update";
