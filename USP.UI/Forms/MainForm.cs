@@ -167,7 +167,7 @@ namespace USP.UI
             var lvi = new ListViewItem{ Tag = data };
             lvi.SubItems.Add(data.Description);
             lvi.SubItems.Add(data.Address);
-            lvi.SubItems.Add(data.DType.ToString());
+            lvi.SubItems.Add(data.DataType.ToString());
             lvi.SubItems.Add(data.UpdateData(editor));
             return lvi;
         }
@@ -224,7 +224,7 @@ namespace USP.UI
             if (item != null)
             {
                 var record = (ScriptRecord)item.Tag;
-                var form = new ScriptForm(MyCoreBot, record);
+                var form = record.LoadForm(MyCoreBot);
                 form.ShowDialog();
             }
         }

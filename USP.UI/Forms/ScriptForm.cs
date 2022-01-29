@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using USP.Core;
 using USP.UI.Script;
@@ -7,29 +8,25 @@ namespace USP.UI
 {
     public partial class ScriptForm : Form
     {
-        private IRAMEditor MyCoreBot;
-        private ScriptRecord ScriptData;
+        private readonly IRAMEditor MyCoreBot;
+        private readonly ScriptRecord ScriptData;
         private ulong CurAddr;
 
         public ScriptForm(IRAMEditor b, ScriptRecord record)
         {
+            MyCoreBot = b;
+            ScriptData = record;
+
             InitializeComponent();
 
-            InitControls(b, record);
-            InitTitle();
-        }
-
-        private void InitControls(IRAMEditor b, ScriptRecord data)
-        {
-            MyCoreBot = b;
-            ScriptData = data;
             BindingData();
+            InitTitle();
         }
 
         private void BindingData()
         {
-            this.typeCB.BindToEnumName(typeof(DataType));
-            this.typeCB.SetSelectedItemToEnum(ScriptData.DType);
+            this.typeCB.DataSource = new List<string>();
+            this.typeCB.SelectedIndex = -1;
             this.pointerBox.DataBindings.Add("Text", ScriptData, "Address");
             this.hexacimalCheckBox.DataBindings.Add("Checked", ScriptData, "Hexadecimal");
 
@@ -47,53 +44,16 @@ namespace USP.UI
             AddrLabel.Text = $"Addr: {CurAddr:X8}";
         }
 
-        private void readButton_Click(object sender, EventArgs e)
+        private void ReadButton_Click(object sender, EventArgs e)
         {
-            var len = ScriptData.DType switch
-            {
-                DataType.BYTE => 2,
-                DataType.TWO_BYTE => 4,
-                DataType.FOUR_BYTE => 8,
-                _ => throw new Exception("impossible"),
-            };
-            var valueType = ScriptData.DType switch
-            {
-                DataType.BYTE => Core.ValueType.SHORT,
-                DataType.TWO_BYTE => Core.ValueType.INT,
-                DataType.FOUR_BYTE => Core.ValueType.LONG,
-                _ => throw new Exception("impossible"),
-            };
-            var bytes = MyCoreBot.ReadAbsolute(CurAddr, len);
-
-            var val = new ValueData(bytes, valueType);
-            resultBox.Text = GetValueFormat(val.HumanValue);
+            var bytes = MyCoreBot.ReadAbsolute(CurAddr, ScriptData.DataLength);
+            resultBox.Text = ScriptData.ParseData(bytes);
         }
 
-        private string GetValueFormat(ulong val)
+        private void WriteButton_Click(object sender, EventArgs e)
         {
-            if (hexacimalCheckBox.Checked)
-            {
-                return $"{val:x}";
-            }
-            else
-            {
-                return val.ToString();
-            }
-        }
-
-        private void writeButton_Click(object sender, EventArgs e)
-        {
-            var valueType = ScriptData.DType switch
-            {
-                DataType.BYTE => Core.ValueType.SHORT,
-                DataType.TWO_BYTE => Core.ValueType.INT,
-                DataType.FOUR_BYTE => Core.ValueType.LONG,
-                _ => throw new Exception("impossible"),
-            };
-            var val = new ValueData(null, valueType);
-            val.HumanValue = ulong.Parse(resultBox.Text);
-
-            MyCoreBot.WriteAbsolute(val.Bytes, CurAddr);
+            var rawBytes = ScriptData.GetData(resultBox.Text);
+            MyCoreBot.WriteAbsolute(rawBytes, CurAddr);
         }
     }
 }

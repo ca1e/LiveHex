@@ -8,22 +8,22 @@ namespace USP.Core
 #nullable enable
         public ValueData(byte[]? data, ValueType type)
         {
-            if (data == null)
+            if (data == null || data.Length == 0)
                 this.bytes = new byte[(int)type];
             else
-                this.bytes = data;
+                this.bytes = data[..(int)type];
 
         }
 #nullable disable
         public byte[] Bytes => bytes;
 
-        private byte[] bytes;
+        private readonly byte[] bytes;
 
         public ulong HumanValue
         {
             get
             {
-                var s = BitConverter.ToString(bytes.Take(bytes.Length).Reverse().ToArray()).Replace("-", "");
+                var s = BitConverter.ToString(bytes.Reverse().ToArray()).Replace("-", "");
                 return ulong.Parse(s, System.Globalization.NumberStyles.HexNumber);
             }
             set
@@ -36,7 +36,7 @@ namespace USP.Core
 
     public enum ValueType
     {
-        BIT = 0x1,
+        BYTE = 0x1,
         SHORT = 0x2,
         INT = 0x4,
         LONG = 0x8,

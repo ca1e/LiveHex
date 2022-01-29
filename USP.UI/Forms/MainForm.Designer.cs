@@ -80,7 +80,7 @@ namespace USP.UI
             this.LV_view.Margin = new System.Windows.Forms.Padding(4);
             this.LV_view.MultiSelect = false;
             this.LV_view.Name = "LV_view";
-            this.LV_view.Size = new System.Drawing.Size(624, 171);
+            this.LV_view.Size = new System.Drawing.Size(624, 151);
             this.LV_view.TabIndex = 0;
             this.LV_view.UseCompatibleStateImageBehavior = false;
             this.LV_view.View = System.Windows.Forms.View.Details;
@@ -220,10 +220,10 @@ namespace USP.UI
             // BT_cleanTable
             // 
             this.BT_cleanTable.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.BT_cleanTable.Location = new System.Drawing.Point(289, 120);
+            this.BT_cleanTable.Location = new System.Drawing.Point(291, 131);
             this.BT_cleanTable.Margin = new System.Windows.Forms.Padding(4);
             this.BT_cleanTable.Name = "BT_cleanTable";
-            this.BT_cleanTable.Size = new System.Drawing.Size(43, 45);
+            this.BT_cleanTable.Size = new System.Drawing.Size(32, 34);
             this.BT_cleanTable.TabIndex = 23;
             this.BT_cleanTable.UseVisualStyleBackColor = true;
             // 
@@ -263,9 +263,9 @@ namespace USP.UI
             // 
             // CKB_Update
             // 
-            this.CKB_Update.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.CKB_Update.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CKB_Update.AutoSize = true;
-            this.CKB_Update.Location = new System.Drawing.Point(339, 144);
+            this.CKB_Update.Location = new System.Drawing.Point(556, 328);
             this.CKB_Update.Name = "CKB_Update";
             this.CKB_Update.Size = new System.Drawing.Size(68, 21);
             this.CKB_Update.TabIndex = 26;
