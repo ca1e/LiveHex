@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using USP.Core;
+﻿using System.IO;
 
 namespace Noexes.Base
 {
@@ -10,14 +9,45 @@ namespace Noexes.Base
         public ulong Address { get; init; } = ulong.MinValue;
         public ulong Size { get; init; } = ulong.MinValue;
         public MemoryType Type { get; init; } = uint.MinValue;
-        public uint Perm { get; init; } = uint.MinValue;
+        public int Perm { get; init; } = int.MinValue;
+
+        public ulong NextAddress => Address + Size;
+
+        public bool isReadable()
+        {
+            return (Perm & 1) != 0;
+        }
+
+        public bool isWriteable()
+        {
+            return (Perm & 2) != 0;
+        }
+
+        public bool isExecutable()
+        {
+            return (Perm & 4) != 0;
+        }
+
+        public bool contains(ulong addr)
+        {
+            return Address <= addr && NextAddress > addr;
+        }
 
         public MemoryInfo(byte[] data)
         {
-            Address = new ValueData(data.Take(8).ToArray(), ValueType.LONG).HumanValue;
-            Size = new ValueData(data.Skip(8).Take(8).ToArray(), ValueType.LONG).HumanValue;
-            Type = (MemoryType)new ValueData(data.Skip(16).Take(4).ToArray(), ValueType.INT).HumanValue;
-            Perm = (uint)new ValueData(data.Skip(20).Take(4).ToArray(), ValueType.INT).HumanValue;
+            var bi = new BinaryReader(new MemoryStream(data));
+            Address = bi.ReadUInt64();
+            Size = bi.ReadUInt64();
+            Type = (MemoryType)bi.ReadInt32();
+            Perm = bi.ReadInt32();
+        }
+
+        public MemoryInfo(long addr, long size, int type, int perm)
+        {
+            this.Address = (ulong)addr;
+            this.Size = (ulong)size;
+            this.Type = (MemoryType)(type);
+            this.Perm = perm;
         }
     }
 

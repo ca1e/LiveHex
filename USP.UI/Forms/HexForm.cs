@@ -28,7 +28,7 @@ namespace USP.UI
 
             if (info.HeepBase == 0)
             {
-                // throw new Exception("Heap Zero!");
+                MessageBox.Show("Heap Zero!");
                 Debug.Write("Heap Zero!");
             }
 

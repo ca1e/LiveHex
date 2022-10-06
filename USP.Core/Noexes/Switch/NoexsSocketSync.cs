@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Noexes.Base
 {
@@ -27,16 +28,18 @@ namespace Noexes.Base
 
         private ulong Main_ = ulong.MinValue;
         private ulong Heap_ = ulong.MinValue;
+        private const int FRAME = 5000;
 
-        private void InitInfo()
+        private async void InitInfo()
         {
-            var mi = QueryMulti(0, 1000);
+            var info = QueryMulti(0, FRAME);
 
-            var ml = mi.Where(m => m.Type == MemoryType.CODE_STATIC && m.Perm == 0b101).OrderBy(m => m.Address);
-            var mainm = ml.LongCount() > 1 ? ml.Skip(1).First() : ml.First();
+            var ml = info.Where(m => m.Type == MemoryType.CODE_STATIC && m.Perm == 0b101).OrderBy(m => m.Address);
+            var mainm = ml.LongCount() > 1 ? ml.Skip(1).First() : ml.FirstOrDefault();
+
             Main_ = mainm?.Address ?? ulong.MinValue;
 
-            var heapm = mi.Where(m => m.Type == MemoryType.HEAP).OrderBy(m=>m.Address).First();
+            var heapm = info.Where(m => m.Type == MemoryType.HEAP).OrderBy(m=>m.Address).FirstOrDefault();
             Heap_ = heapm?.Address ?? ulong.MinValue;
         }
 

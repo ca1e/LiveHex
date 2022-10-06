@@ -1,6 +1,8 @@
 ﻿using SysBot.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace Noexes.Base
 {
@@ -9,6 +11,22 @@ namespace Noexes.Base
         public NoexsSocket(IWirelessConnectionConfig cfg) : base(cfg) { }
 
         private readonly static object _sync = new();
+        private readonly Semaphore semaphore = new(1, 1);
+        private void acquire()
+        {
+            try
+            {
+                semaphore.WaitOne();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        private void release()
+        {
+            semaphore.Release();
+        }
 
         private void ResultCheck()
         {
@@ -26,15 +44,10 @@ namespace Noexes.Base
                 WaitForAvailable(MemoryInfo.InfoSize);
                 var raw = ReadResponse(MemoryInfo.InfoSize);
                 var info = new MemoryInfo(raw);
-                //var addr = ReadLong();
-                //var size = ReadLong();
-                //var type = ReadInt();
-                //var perm = ReadInt();
 
                 ResultCheck();
 
                 return info;
-                //return new MemoryInfo { Address = addr, Size = size, Type = type, Perm = perm };
             }
         }
 
@@ -131,24 +144,25 @@ namespace Noexes.Base
 
         protected void Detach() => SendReadResult(NoexsCommand.Detach());
 
-        protected MemoryInfo[] QueryMulti(long start, int max)
+        protected IReadOnlyCollection<MemoryInfo> QueryMulti(long start, int max)
         {
             lock (_sync)
             {
                 Send(NoexsCommand.QueryMulti(start, max));
-                var res = new List<MemoryInfo>();
-                int count = 0;
+                var result = new MemoryInfo[max];
+                int count;
                 for (count = 0; count < max; count++)
                 {
                     var info = ReadInfo();
+
+                    result[count] = info;
                     if (info.Type == MemoryType.RESERVED)
                     {
                         break;
                     }
-                    res.Add(info);
                 }
                 ReadResult();
-                return res.ToArray();
+                return new ArraySegment<MemoryInfo>(result, 0, count);
             }
         }
 

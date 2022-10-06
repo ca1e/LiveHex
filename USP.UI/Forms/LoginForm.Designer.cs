@@ -44,7 +44,7 @@ namespace USP.UI
             // 
             // ipTextBox
             // 
-            this.ipTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ipTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ipTextBox.Location = new System.Drawing.Point(15, 30);
             this.ipTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.ipTextBox.Name = "ipTextBox";
@@ -55,7 +55,7 @@ namespace USP.UI
             // CB_Protocol
             // 
             this.CB_Protocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_Protocol.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CB_Protocol.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CB_Protocol.FormattingEnabled = true;
             this.CB_Protocol.Location = new System.Drawing.Point(14, 132);
             this.CB_Protocol.Margin = new System.Windows.Forms.Padding(4);
@@ -65,7 +65,7 @@ namespace USP.UI
             // 
             // portTextBox
             // 
-            this.portTextBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.portTextBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.portTextBox.Location = new System.Drawing.Point(15, 69);
             this.portTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.portTextBox.Name = "portTextBox";
@@ -75,7 +75,7 @@ namespace USP.UI
             // 
             // BT_conn
             // 
-            this.BT_conn.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BT_conn.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BT_conn.Location = new System.Drawing.Point(13, 212);
             this.BT_conn.Margin = new System.Windows.Forms.Padding(4);
             this.BT_conn.Name = "BT_conn";
@@ -88,7 +88,7 @@ namespace USP.UI
             // usbComboBox
             // 
             this.usbComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.usbComboBox.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.usbComboBox.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.usbComboBox.FormattingEnabled = true;
             this.usbComboBox.Location = new System.Drawing.Point(15, 30);
             this.usbComboBox.Margin = new System.Windows.Forms.Padding(4);
@@ -109,7 +109,7 @@ namespace USP.UI
             // 
             // BT_attach
             // 
-            this.BT_attach.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BT_attach.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BT_attach.Location = new System.Drawing.Point(4, 4);
             this.BT_attach.Margin = new System.Windows.Forms.Padding(4);
             this.BT_attach.Name = "BT_attach";
@@ -131,8 +131,7 @@ namespace USP.UI
             // 
             // BT_detach
             // 
-            this.BT_detach.Enabled = false;
-            this.BT_detach.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.BT_detach.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.BT_detach.Location = new System.Drawing.Point(4, 59);
             this.BT_detach.Margin = new System.Windows.Forms.Padding(4);
             this.BT_detach.Name = "BT_detach";
