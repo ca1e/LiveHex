@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -66,7 +64,6 @@ namespace SysBot.Base
                 Send(SwitchCommand.GetTitleID(false));
                 byte[] baseBytes = ReadBulkUSB();
                 return BitConverter.ToUInt64(baseBytes, 0).ToString("X16").Trim();
-
             }, token);
         }
 
@@ -95,12 +92,9 @@ namespace SysBot.Base
 
         public Task PointerPoke(byte[] data, IEnumerable<long> jumps, CancellationToken token)
         {
-            return Task.Run(() =>
-            {
-                Send(SwitchCommand.PointerPoke(jumps, data, false));
-            }, token);
+            return Task.Run(() => Send(SwitchCommand.PointerPoke(jumps, data, false)), token);
         }
-        
+
         public Task<ulong> PointerAll(IEnumerable<long> jumps, CancellationToken token)
         {
             return Task.Run(() =>
@@ -108,7 +102,6 @@ namespace SysBot.Base
                 Send(SwitchCommand.PointerAll(jumps, false));
                 byte[] baseBytes = ReadBulkUSB();
                 return BitConverter.ToUInt64(baseBytes, 0);
-
             }, token);
         }
 
@@ -119,7 +112,6 @@ namespace SysBot.Base
                 Send(SwitchCommand.PointerRelative(jumps, false));
                 byte[] baseBytes = ReadBulkUSB();
                 return BitConverter.ToUInt64(baseBytes, 0);
-
             }, token);
         }
     }
