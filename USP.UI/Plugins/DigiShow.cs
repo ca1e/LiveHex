@@ -1,6 +1,4 @@
-﻿using USP.Core;
-
-namespace USP.Plugins
+﻿namespace USP.Plugins
 {
     public partial class DigiShow : DataUserControl
     {

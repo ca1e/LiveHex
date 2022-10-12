@@ -1,6 +1,4 @@
-﻿using USP.Core;
-
-namespace USP.Plugins
+﻿namespace USP.Plugins
 {
     sealed internal class ByteData : IDataType
     {
@@ -33,9 +31,9 @@ namespace USP.Plugins
         string IDataType.ToString() => _len switch
         {
             1 => "BYTE",
-            2 => "TWO_BYTE",
-            4 => "FOUR_BYTE",
-            8 => "EIGHT_BYTE",
+            2 => "U16",
+            4 => "U32",
+            8 => "U64",
             _ => throw new System.NotImplementedException(),
         };
     }

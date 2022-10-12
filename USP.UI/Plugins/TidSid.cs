@@ -1,4 +1,4 @@
-﻿using USP.Core;
+﻿using System;
 
 namespace USP.Plugins
 {
@@ -9,9 +9,9 @@ namespace USP.Plugins
 
         string IDataType.ParseData(byte[] raw, bool _)
         {
-            var tid = new ValueData(raw, ValueType.SHORT);
-            var sid = new ValueData(raw[2..], ValueType.SHORT);
-            return $"t/s:{tid.HumanValue}/{sid.HumanValue}";
+            var tid = BitConverter.ToUInt16(raw.AsSpan());
+            var sid = BitConverter.ToUInt16(raw.AsSpan()[2..]);
+            return $"t/s:{tid}/{sid}";
         }
 
         DataUserControl IDataType.ShowControl()

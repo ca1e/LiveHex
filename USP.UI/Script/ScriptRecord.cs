@@ -22,7 +22,7 @@ namespace USP.UI.Script
 
         public static List<string> GetDefaultTypes()
         {
-            return new List<string> { "BYTE", "TWO_BYTE", "FOUR_BYTE", "EIGHT_BYTE", "TIDSID" };
+            return new List<string> { "BYTE", "U16", "U32", "U64", "TIDSID" };
         }
 
         private static IDataType GetDataType(string t)
@@ -30,9 +30,9 @@ namespace USP.UI.Script
             return t switch
             {
                 "BYTE" => new ByteData(1),
-                "TWO_BYTE" => new ByteData(2),
-                "FOUR_BYTE" => new ByteData(4),
-                "EIGHT_BYTE" => new ByteData(8),
+                "U16" => new ByteData(2),
+                "U32" => new ByteData(4),
+                "U64" => new ByteData(8),
                 "TIDSID" => new TidSid(),
                 _ => throw new System.NotImplementedException(),
             };

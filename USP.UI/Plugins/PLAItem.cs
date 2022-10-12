@@ -1,4 +1,4 @@
-﻿using USP.Core;
+﻿using System;
 
 namespace USP.Plugins
 {
@@ -9,8 +9,8 @@ namespace USP.Plugins
 
         string IDataType.ParseData(byte[] raw, bool _)
         {
-            var item = new ValueData(raw, ValueType.SHORT);
-            var count = new ValueData(raw[2..], ValueType.SHORT);
+            var item = BitConverter.ToInt16(raw.AsSpan());
+            var count = BitConverter.ToInt16(raw.AsSpan()[2..]);
             return $"{item}({count})";
         }
 

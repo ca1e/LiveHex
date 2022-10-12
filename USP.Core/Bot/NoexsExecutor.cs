@@ -1,5 +1,6 @@
 ﻿using Noexes.Base;
 using SysBot.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -78,8 +79,7 @@ namespace USP.Core
             var vars = new Dictionary<string, ulong>() { { "main", Connection.GetMainNsoBase() }, { "heap", Connection.GetHeapBase() } };
             var Eval = new ExpressionEvaluator(vars, (ulong addr) => {
                 var data = Connection.ReadBytesAbsolute(addr, 0x8);
-                var realaddr = new ValueData(data, ValueType.LONG);
-                return realaddr.HumanValue;
+                return BitConverter.ToUInt64(data.AsSpan());
             });
             return Eval.Eval(evalStr);
         }

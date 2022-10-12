@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace USP.Core
+namespace USP.Plugins
 {
     public class ValueData
     {
@@ -23,8 +23,10 @@ namespace USP.Core
         {
             get
             {
+                var tmp1 = BitConverter.ToUInt64(bytes.AsSpan());
                 var s = BitConverter.ToString(bytes.Reverse().ToArray()).Replace("-", "");
-                return ulong.Parse(s, System.Globalization.NumberStyles.HexNumber);
+                var tmp2 = ulong.Parse(s, System.Globalization.NumberStyles.HexNumber);
+                return tmp2;
             }
             set
             {
