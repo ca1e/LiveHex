@@ -41,7 +41,7 @@ namespace USP.Core
                 var data = Connection.ReadBytesAbsolute(addr, 0x8);
                 return BitConverter.ToUInt64(data.AsSpan());
             });
-            return Eval.Eval(evalStr);
+            return Eval.Eval(Connection, evalStr);
         }
     }
 }

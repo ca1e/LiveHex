@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SysBot.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using static USP.Core.ExpressionEvaluator.Type;
 
 namespace USP.Core
@@ -34,6 +36,41 @@ namespace USP.Core
         {
             this.Variables = variables;
             this.getMemAbs += mem;
+        }
+
+        public ulong Eval(ISwitchConnectionSync conn, string pointer, bool heaprealtive = false)
+        {
+            var ptr = pointer;
+            if (string.IsNullOrWhiteSpace(ptr) || ptr.IndexOfAny(new char[] { '-', '/', '*' }) != -1)
+                return 0;
+            while (ptr.Contains("]]"))
+                ptr = ptr.Replace("]]", "]+0]");
+            uint? finadd = null;
+            if (!ptr.EndsWith("]"))
+            {
+                finadd = GetHexValue(ptr.Split('+').Last());
+                ptr = ptr[..ptr.LastIndexOf('+')];
+            }
+            var jumps = ptr.Replace("main", "").Replace("[", "").Replace("]", "").Split(new[] { "+" }, StringSplitOptions.RemoveEmptyEntries);
+            if (jumps.Length == 0)
+                return 0;
+
+            var initaddress = GetHexValue(jumps[0].Trim());
+            ulong address = BitConverter.ToUInt64(conn.ReadBytesMain(initaddress, 0x8));
+            foreach (var j in jumps)
+            {
+                var val = GetHexValue(j.Trim());
+                if (val == initaddress)
+                    continue;
+                address = BitConverter.ToUInt64(conn.ReadBytesAbsolute(address + val, 0x8));
+            }
+            if (finadd != null) address += (ulong)finadd;
+            if (heaprealtive)
+            {
+                ulong heap = Variables["heap"];
+                address -= heap;
+            }
+            return address;
         }
         public ulong Eval(string str)
         {
@@ -89,6 +126,7 @@ namespace USP.Core
             {
                 '-' => v2 - v1,
                 '+' => v2 + v1,
+                '*' => v2 * v1,
                 _ => throw new InvalidOperationException("op:" + type),// Invalid format
             };
         }
@@ -216,9 +254,40 @@ namespace USP.Core
             {
                 '[' => DEREF_START,
                 ']' => DEREF_END,
-                '+' or '-' => ARITHMETIC,
+                '+' or '-' or '*' or '/' => ARITHMETIC,
                 _ => VARIABLE,
             };
         }
+
+        private static uint GetHexValue(ReadOnlySpan<char> value)
+        {
+            uint result = 0;
+            if (value.Length == 0)
+                return result;
+
+            foreach (var c in value)
+            {
+                if (IsNum(c))
+                {
+                    result <<= 4;
+                    result += (uint)(c - '0');
+                }
+                else if (IsHexUpper(c))
+                {
+                    result <<= 4;
+                    result += (uint)(c - 'A' + 10);
+                }
+                else if (IsHexLower(c))
+                {
+                    result <<= 4;
+                    result += (uint)(c - 'a' + 10);
+                }
+            }
+            return result;
+        }
+        private static bool IsNum(char c) => (uint)(c - '0') <= 9;
+        private static bool IsHexUpper(char c) => (uint)(c - 'A') <= 5;
+        private static bool IsHexLower(char c) => (uint)(c - 'a') <= 5;
+        private static bool IsHex(char c) => IsNum(c) || IsHexUpper(c) || IsHexLower(c);
     }
 }
